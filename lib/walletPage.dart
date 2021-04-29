@@ -12,70 +12,79 @@ class WalletPage extends StatefulWidget {
 class _WalletPageState extends State<WalletPage> {
   List<bool> isSelected = [true, false];
   bool i;
-  int type =0;
+  int type = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-                  child: Container(
-              child: Column(
+      backgroundColor: Colors.white,
+      body: Container(
+        
+          child: Column(
+        children: [
+          Row(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('   Hope Point',
+                  Text('   Wallet',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.w600)),
                 ],
               ),
-              Center(child: cupon()),
-              balance('35 TSh', 800),
-              Row(
-                children: [
-                  Text('    Recent',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height*0.02),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Material(
-                  elevation:5,
-                    shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15))),
+            ],
+          ),
+          balance('3,550 TSh', 800),
 
-                                child: Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
-              
-            ),
-                    child: ToggleSwitch(
-                      minWidth: 140.0,
-                      minHeight: 90.0,
-                      fontSize: 16.0,
-                      initialLabelIndex: type,
-                      activeBgColor: Colors.orange,
-                      activeFgColor: Colors.white,
-                      inactiveBgColor: Colors.white,
-                      inactiveFgColor: Colors.black,
-                      labels: ['Purchases', 'Reedem',],
-                      onToggle: (index) {
-                          setState(() {
-                            type = index;
-                          });
-                      },
-                    ),
-                  ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Material(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15))),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.05,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                ),
+                child: ToggleSwitch(
+                  minWidth: 140.0,
+                  minHeight: 90.0,
+                  fontSize: 16.0,
+                  initialLabelIndex: type,
+                  activeBgColor: Colors.orange,
+                  activeFgColor: Colors.white,
+                  inactiveBgColor: Colors.white,
+                  inactiveFgColor: Colors.black,
+                  labels: [
+                    'Purchases',
+                    'Reedem',
+                  ],
+                  onToggle: (index) {
+                    setState(() {
+                      type = index;
+                    });
+                  },
                 ),
               ),
-              PurchaseRedeem(index:type),
-            ],
-          )),
-        ));
+            ),
+          ),
+          // Row(
+          //   children: [
+          //     Text('    Last Transactions',
+          //         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
+          //   ],
+          // ),
+          Container(
+              height: MediaQuery.of(context).size.height * 0.604,
+              color: Colors.transparent,
+              child: SingleChildScrollView(child: PurchaseRedeem(index: type))),
+        ],
+      )),
+    );
   }
 
   Widget cupon() {
@@ -92,39 +101,49 @@ class _WalletPageState extends State<WalletPage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
-              elevation: 5,
-                      shape: RoundedRectangleBorder(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15))),
-               child: Container(
+        child: Container(
           width: MediaQuery.of(context).size.width * 0.9,
           height: MediaQuery.of(context).size.height * 0.1,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: Colors.white,
-          
+            // color: Colors.blue[800],
+      //      gradient: LinearGradient(
+      // colors: [Colors.green[400], Colors.green[500], Colors.teal[500],Colors.teal[600], ])
+       gradient: LinearGradient(
+    colors: <Color>[Colors.green[400], Colors.green[500]],
+  ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                Text('Balance',
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.orange,
-                        fontWeight: FontWeight.w400)),
-                Text(amount,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-              ]),
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text('Balance',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.orange[400],
+                        )),
+                    Text(amount,
+                        style: TextStyle(
+                            fontSize: 30, color: Colors.orange[400],fontWeight: FontWeight.w500)),
+                  ]),
               Container(),
-              Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                Text('Points',
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.orange,
-                        fontWeight: FontWeight.w400)),
-                Text('$point',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-              ])
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text('Points',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.orange[400],
+                            fontWeight: FontWeight.w400)),
+                    Text('$point',
+                        style: TextStyle(
+                            fontSize: 30, color: Colors.amber[400], fontWeight: FontWeight.w500)),
+                  ])
             ],
           ),
         ),
