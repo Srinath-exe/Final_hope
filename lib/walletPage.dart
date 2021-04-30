@@ -113,7 +113,7 @@ class _WalletPageState extends State<WalletPage> {
       //      gradient: LinearGradient(
       // colors: [Colors.green[400], Colors.green[500], Colors.teal[500],Colors.teal[600], ])
        gradient: LinearGradient(
-    colors: <Color>[Colors.green[400], Colors.green[500]],
+    colors: <Color>[Colors.white, Colors.white],
   ),
           ),
           child: Row(
@@ -125,11 +125,11 @@ class _WalletPageState extends State<WalletPage> {
                     Text('Balance',
                         style: TextStyle(
                           fontSize: 20,
-                          color: Colors.orange[400],
+                          color: Colors.black,
                         )),
                     Text(amount,
                         style: TextStyle(
-                            fontSize: 30, color: Colors.orange[400],fontWeight: FontWeight.w500)),
+                            fontSize: 30, color: Colors.black,fontWeight: FontWeight.w500)),
                   ]),
               Container(),
               Column(
@@ -138,11 +138,11 @@ class _WalletPageState extends State<WalletPage> {
                     Text('Points',
                         style: TextStyle(
                             fontSize: 20,
-                            color: Colors.orange[400],
+                            color: Colors.black,
                             fontWeight: FontWeight.w400)),
                     Text('$point',
                         style: TextStyle(
-                            fontSize: 30, color: Colors.amber[400], fontWeight: FontWeight.w500)),
+                            fontSize: 30, color: Colors.black, fontWeight: FontWeight.w500)),
                   ])
             ],
           ),

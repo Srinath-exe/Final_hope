@@ -23,11 +23,11 @@ class MyApp extends StatelessWidget {
       ),
       home: SplashScreenView(
       home: LoginPage(),
-      duration: 500,
+      duration: 400,
       imageSize: 100,
       imageSrc: "assets/images/hopelogoremovebg.png",
       text: "P O I N T",
-      textType: TextType.TyperAnimatedText,
+      textType: TextType.ScaleAnimatedText,
       textStyle: TextStyle(
         fontSize: 30.0,
         fontWeight: FontWeight.w700,

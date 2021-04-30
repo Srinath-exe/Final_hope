@@ -71,7 +71,7 @@ class _PurchaseRedeemState extends State<PurchaseRedeem> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: (pname!='Pappa Roti')?Icon(Icons.shopping_bag,color:  Colors.amber):Icon(Icons.restaurant,color:  Colors.amber
+                        child: (pname!='Pappa Roti')?Icon(Icons.shopping_bag,color:  Colors.blue[300]):Icon(Icons.restaurant,color:  Colors.blue[300]
                         ),
                       ),
                       Padding(
@@ -162,7 +162,7 @@ class _PurchaseRedeemState extends State<PurchaseRedeem> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: (pname!='Pappa Roti')?Icon(Icons.shopping_bag,color:  Colors.amber):Icon(Icons.restaurant,color:  Colors.amber
+                        child: (pname!='Pappa Roti')?Icon(Icons.shopping_bag,color:  Colors.blue[200]):Icon(Icons.restaurant,color:  Colors.amber
                         ),
                       ),
                       Padding(
@@ -212,7 +212,7 @@ class _PurchaseRedeemState extends State<PurchaseRedeem> {
                                 fontSize: 18,
                                 color: Colors.red[800],
                                 fontWeight: FontWeight.w600)),
-                        Text('Total: $total TSh',
+                        Text('$total TSh',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w500)),
                       ],
