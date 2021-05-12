@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hope/verificationPage.dart';
+import 'package:hope/Screens/verificationPage.dart';
 
 
 import 'package:otp_screen/otp_screen.dart';

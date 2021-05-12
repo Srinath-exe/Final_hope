@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hope/referral.dart';
+import 'package:hope/Screens/referral.dart';
 
 import 'package:otp_screen/otp_screen.dart';
 

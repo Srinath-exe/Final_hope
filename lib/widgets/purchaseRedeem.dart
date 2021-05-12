@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hope/purchaseDetails.dart';
+import 'package:hope/Screens/purchaseDetails.dart';
 
 class PurchaseRedeem extends StatefulWidget {
   int index;
@@ -121,7 +121,7 @@ class _PurchaseRedeemState extends State<PurchaseRedeem> {
                                 fontSize: 18,
                                 color: Colors.green[800],
                                 fontWeight: FontWeight.w600)),
-                        Text('Total: $total TSh',
+                        Text('$total TSh',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w500)),
                       ],

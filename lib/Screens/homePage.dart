@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:hope/navigationb.dart';
-import 'package:hope/profile.dart';
+import 'package:hope/Screens/navigationb.dart';
+import 'package:hope/Screens/profile.dart';
 
 class HomePage extends StatefulWidget {
 

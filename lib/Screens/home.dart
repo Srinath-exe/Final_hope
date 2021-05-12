@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hope/widgets/cupon.dart';
 import 'package:hope/widgets/productCard.dart';
-
 
 final List<String> imagesList = [
   'http://www.hopeholding.co.tz/img/banner/b3.jpg',
@@ -52,8 +50,6 @@ class _HomeState extends State<Home> {
               ],
             ),
             topDeals(),
-          
-           
           ]),
         ),
       ),
@@ -71,7 +67,6 @@ class _HomeState extends State<Home> {
 
   Widget carousel() {
     return Container(
-      
         child: Column(children: [
       CarouselSlider(
         options: CarouselOptions(
@@ -148,29 +143,33 @@ class _HomeState extends State<Home> {
                   'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
             ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/27.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/27.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fw/5.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fw/5.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/25.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/25.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/pr/pr1.png',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/pr/pr1.png',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
           ],
         ));
   }
@@ -181,71 +180,82 @@ class _HomeState extends State<Home> {
         child: Row(
           children: [
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/22.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/22.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/23.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/23.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/24.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/24.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/25.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/25.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/26.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/26.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/27.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/27.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/28.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/28.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/29.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/29.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/30.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/30.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/31.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/31.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
-                product: 'Product Tile',
-                image: 'http://www.hopeholding.co.tz/img/rt/fc/32.jpg',
+              product: 'Product Tile',
+              image: 'http://www.hopeholding.co.tz/img/rt/fc/32.jpg',
               price: 25.00,
               productdetails:
-                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',),
+                  'When choosing a summer dress you want to find something that will keep you cool but also looking good. While each woman will have different opinions on the best summer dress, ultimately it’s up to you to choose what you’re comfortable and confident in.\n\nCare Instructions: machine \nwashColor Name: Black\nMaterial: Synthetic\nPalazzo\nMachine wash',
+            ),
             ProductCard(
                 product: 'Product Tile',
                 image: 'http://www.hopeholding.co.tz/img/rt/fc/33.jpg'),

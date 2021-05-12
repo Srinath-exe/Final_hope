@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hope/CuponsPage.dart';
-import 'package:hope/TandC.dart';
-import 'package:hope/login.dart';
-import 'package:hope/referralPage.dart';
+import 'package:hope/Screens/CuponsPage.dart';
+import 'package:hope/Screens/TandC.dart';
+import 'package:hope/Screens/login.dart';
+import 'package:hope/Screens/notificationPage.dart';
+import 'package:hope/Screens/referralPage.dart';
 import 'package:hope/widgets/cupon.dart';
-import 'package:hope/widgets/storesPage.dart';
+import 'package:hope/Screens/storesPage.dart';
 
 
 class Profile extends StatefulWidget {
@@ -163,44 +164,52 @@ class _ProfileState extends State<Profile> {
             ),
             
           
-            // Container(
-            //   width: MediaQuery.of(context).size.width,
-            //   height: MediaQuery.of(context).size.height * 0.06,
-            //   child: ElevatedButton(
-            //       style: ButtonStyle(
-            //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            //             RoundedRectangleBorder(
-            //                 side: BorderSide(color: Colors.transparent))),
-            //         backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            //           (Set<MaterialState> states) {
-            //             if (states.contains(MaterialState.pressed))
-            //               return Colors.orange[200];
-            //             return Colors.white;
-            //           },
-            //         ),
-            //       ),
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //         children: [
-            //           Text(
-            //             'Notifications',
-            //             style: TextStyle(
-            //               fontSize: 17,
-                          
-            //               color: Colors.black,
-            //             ),
-            //           ),
-            //           Icon(Icons.arrow_forward_ios,
-            //               size: 30, color: Colors.black)
-            //         ],
-            //       ),
-            //       onPressed: () {
-            //         setState(() {
-            //             Navigator.push(context,
-            //               MaterialPageRoute(builder: (context) => NotificationPage()));
-            //         });
-            //       }),
-            // ),
+              Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.06,
+              child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.transparent))),
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed))
+                          return Colors.yellow[100];
+                        return Colors.white;
+                      },
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                       Row(
+                        children: [
+                          Icon(Icons.notifications,color: Colors.yellow[700]),
+                           SizedBox(width: MediaQuery.of(context).size.width*0.01),
+
+                          Text(
+                        'Notifications',
+                        style: TextStyle(
+                          fontSize: 17,
+                         
+                          color: Colors.yellow[800],
+                        ),
+                      ),
+                        ],
+                      ),
+                        Icon(Icons.arrow_forward_ios,
+                          size: 20, color: Colors.black)
+                    ],
+                  ),
+                  onPressed: () {
+                    setState(() {
+                       Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => NotificationPage()));
+                    });
+                  }),
+            ), 
+       
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.06,

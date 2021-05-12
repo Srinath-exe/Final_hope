@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hope/homePage.dart';
-import 'package:hope/signup.dart';
+import 'package:hope/Screens/homePage.dart';
+import 'package:hope/Screens/signup.dart';
 
 class LoginPage extends StatefulWidget {
   @override

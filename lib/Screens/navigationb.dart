@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hope/ProductPage.dart';
-import 'package:hope/home.dart';
-import 'package:hope/offersPage.dart';
-import 'package:hope/walletPage.dart';
+import 'package:hope/Screens/ProductPage.dart';
+import 'package:hope/Screens/home.dart';
+import 'package:hope/Screens/offersPage.dart';
+import 'package:hope/Screens/walletPage.dart';
 
 
 class Navbar extends StatefulWidget {

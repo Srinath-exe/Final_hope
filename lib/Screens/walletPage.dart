@@ -72,13 +72,7 @@ class _WalletPageState extends State<WalletPage> {
               ),
             ),
           ),
-          // Row(
-          //   children: [
-          //     Text('    Last Transactions',
-          //         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
-          //   ],
-          // ),
-          Container(
+         Container(
               height: MediaQuery.of(context).size.height * 0.604,
               color: Colors.transparent,
               child: SingleChildScrollView(child: PurchaseRedeem(index: type))),

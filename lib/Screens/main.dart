@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hope/login.dart';
+import 'package:hope/Screens/login.dart';
 import 'package:splash_screen_view/ColorizeAnimatedText.dart';
 import 'package:splash_screen_view/ScaleAnimatedText.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
@@ -19,21 +19,12 @@ class MyApp extends StatelessWidget {
       title: 'Hope Point',
       theme: ThemeData(
         
-        primarySwatch: Colors.blue,
+      
       ),
-      home: SplashScreenView(
+     
       home: LoginPage(),
-      duration: 400,
-      imageSize: 100,
-      imageSrc: "assets/images/hopelogoremovebg.png",
-      text: "P O I N T",
-      textType: TextType.ScaleAnimatedText,
-      textStyle: TextStyle(
-        fontSize: 30.0,
-        fontWeight: FontWeight.w700,
-      ),
-      backgroundColor: Colors.white,
-    )
+      
+  
     );
   }
 }
