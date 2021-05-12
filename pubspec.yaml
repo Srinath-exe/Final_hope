@@ -32,7 +32,7 @@ dependencies:
   line_icons: ^2.0.0
   flutter_native_splash: ^1.1.8+4
   otp_screen: ^0.0.3
-  syncfusion_flutter_gauges: ^18.2.44
+  syncfusion_flutter_gauges: ^19.1.59
   carousel_slider: ^3.0.0
   clay_containers: ^0.3.2
   toggle_switch: "^0.1.9"
@@ -40,7 +40,8 @@ dependencies:
   share: ^2.0.1
   material_floating_search_bar: ^0.3.4
   flutter_screenutil: ^5.0.0
-  splash_screen_view: ^1.0.1
+  splash_screen_view: ^3.0.0
+  http: ^0.13.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

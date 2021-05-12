@@ -27,3 +27,39 @@ class PostLogin {
         "pass": pass,
     };
 }
+// To parse this JSON data, do
+//
+//     final responseLogin = responseLoginFromJson(jsonString);
+
+
+ResponseLogin responseLoginFromJson(String str) => ResponseLogin.fromJson(json.decode(str));
+
+String responseLoginToJson(ResponseLogin data) => json.encode(data.toJson());
+
+class ResponseLogin {
+    ResponseLogin({
+        this.error,
+        this.token,
+        this.expires,
+        this.uuid,
+    });
+
+    bool error;
+    String token;
+    int expires;
+    String uuid;
+
+    factory ResponseLogin.fromJson(Map<String, dynamic> json) => ResponseLogin(
+        error: json["error"],
+        token: json["token"],
+        expires: json["expires"],
+        uuid: json["uuid"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "error": error,
+        "token": token,
+        "expires": expires,
+        "uuid": uuid,
+    };
+}

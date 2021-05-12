@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hope/Model/register_model.dart';
 import 'package:hope/Screens/verificationPage.dart';
+import 'package:hope/services/apiService.dart';
 
 
-import 'package:otp_screen/otp_screen.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -11,7 +12,16 @@ class Signup extends StatefulWidget {
 
 class SsignupState extends State<Signup> {
   ScrollController _controller;
+  ApiService apiService;
+  PostRegister registermodel;
   @override
+  void initState(){
+    apiService = new ApiService();
+    registermodel = new PostRegister();
+    _controller = ScrollController(initialScrollOffset: 15);
+    super.initState();
+
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -132,6 +142,11 @@ class SsignupState extends State<Signup> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextField(
+                                       onChanged: (value){
+                                      setState(() {
+                                     registermodel.admFname= value;
+                                      });
+                                    },
                                     decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.account_circle,color:  Color(0xffE58714)),
                                         border: OutlineInputBorder(
@@ -140,11 +155,17 @@ class SsignupState extends State<Signup> {
                                           const Radius.circular(60.0),
                                         )),
                                         hintText: 'Name'),
+
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextField(
+                                    onChanged: (value){
+                                      setState(() {
+                                     registermodel.admMobile= value;
+                                      });
+                                    },
                                     decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.phone_android_outlined,color:  Color(0xffE58714)),
                                         border: OutlineInputBorder(
@@ -165,6 +186,11 @@ class SsignupState extends State<Signup> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextField(
+                                      onChanged: (value){
+                                      setState(() {
+                                     registermodel.admSecert= value;
+                                      });
+                                    },
                                     decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.lock_outline,color:  Color(0xffE58714)),
                                         border: OutlineInputBorder(

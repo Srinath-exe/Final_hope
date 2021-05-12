@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hope/Model/register_model.dart';
 import 'package:hope/Screens/homePage.dart';
-
-
-
+import 'package:hope/services/apiService.dart';
 
 import 'package:share/share.dart';
 
@@ -12,7 +11,17 @@ class Referral extends StatefulWidget {
 }
 
 class _ReferralState extends State<Referral> {
+  ScrollController _controller;
+  ApiService apiService;
+  PostRegister registermodel;
   @override
+  void initState() {
+    apiService = new ApiService();
+    registermodel = new PostRegister();
+    _controller = ScrollController(initialScrollOffset: 15);
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
@@ -54,6 +63,11 @@ class _ReferralState extends State<Referral> {
                   width: MediaQuery.of(context).size.width * 0.75,
                   height: MediaQuery.of(context).size.height * 0.06,
                   child: TextFormField(
+                     onChanged: (value){
+                                      setState(() {
+                                     registermodel.admRefferedBy= value;
+                                      });
+                                    },
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey[50],
@@ -166,7 +180,7 @@ class _ReferralState extends State<Referral> {
                       ),
                     ),
                     onPressed: () {
-                        Share.share('http://www.hopeholding.co.tz/');
+                      Share.share('http://www.hopeholding.co.tz/');
                     },
                     child: Text(
                       'Invite',
@@ -178,7 +192,6 @@ class _ReferralState extends State<Referral> {
                     ),
                   ),
                 ),
-                
               ]))
             ]),
           ),
