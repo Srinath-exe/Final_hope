@@ -32,6 +32,17 @@ class _StorCcardState extends State<StoreCard> {
                      Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Text('Store Name:'),
+                        Container(
+                            width:
+                                MediaQuery.of(context).size.width * 0.9 * 0.6,
+                            child: Text(
+                                widget.storeDetail.strStorename))
+                      ],
+                    ),
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Text('City:'),
                         Container(
                             width:
