@@ -1,0 +1,116 @@
+{
+    "count": 4,
+    "0": {
+        "brd_id": "BRD103",
+        "brd_name": "RedTag",
+        "brd_detail": "redtag details",
+        "brd_logo": "brd_logo-1620848041.png",
+        "brd_status": "Active",
+        "brd_BrandMAPCODE": "redtag1234"
+    },
+    "1": {
+        "brd_id": "BRD102",
+        "brd_name": "Flormar",
+        "brd_detail": "flormar Details",
+        "brd_logo": "brd_logo-1620847685.png",
+        "brd_status": "Active",
+        "brd_BrandMAPCODE": "flormar12345"
+    },
+    "2": {
+        "brd_id": "BRD1",
+        "brd_name": "Bottega Verde",
+        "brd_detail": "Bottega Verde details",
+        "brd_logo": "brd_logo-1620847636.png",
+        "brd_status": "Active",
+        "brd_BrandMAPCODE": "Bottega1234"
+    },
+    "3": {
+        "brd_id": "BRD1",
+        "brd_name": "Bottega Verde",
+        "brd_detail": "Bottega Verde details",
+        "brd_logo": "brd_logo-1620847636.png",
+        "brd_status": "Active",
+        "brd_BrandMAPCODE": "Bottega1234"
+    },
+    "4": {
+        "brd_id": "BRD1",
+        "brd_name": "Bottega Verde",
+        "brd_detail": "Bottega Verde details",
+        "brd_logo": "brd_logo-1620847636.png",
+        "brd_status": "Active",
+        "brd_BrandMAPCODE": "Bottega1234"
+    },
+    "5": {
+        "brd_id": "BRD1",
+        "brd_name": "Bottega Verde",
+        "brd_detail": "Bottega Verde details",
+        "brd_logo": "brd_logo-1620847636.png",
+        "brd_status": "Active",
+        "brd_BrandMAPCODE": "Bottega1234"
+    },
+    "6": {
+        "brd_id": "BRD1",
+        "brd_name": "Bottega Verde",
+        "brd_detail": "Bottega Verde details",
+        "brd_logo": "brd_logo-1620847636.png",
+        "brd_status": "Active",
+        "brd_BrandMAPCODE": "Bottega1234"
+    },
+    "7": {
+        "brd_id": "BRD1",
+        "brd_name": "Bottega Verde",
+        "brd_detail": "Bottega Verde details",
+        "brd_logo": "brd_logo-1620847636.png",
+        "brd_status": "Active",
+        "brd_BrandMAPCODE": "Bottega1234"
+    }
+,
+"8": {
+    "brd_id": "BRD1",
+    "brd_name": "Bottega Verde",
+    "brd_detail": "Bottega Verde details",
+    "brd_logo": "brd_logo-1620847636.png",
+    "brd_status": "Active",
+    "brd_BrandMAPCODE": "Bottega1234"
+}
+,
+"9": {
+    "brd_id": "BRD1",
+    "brd_name": "Bottega Verde",
+    "brd_detail": "Bottega Verde details",
+    "brd_logo": "brd_logo-1620847636.png",
+    "brd_status": "Active",
+    "brd_BrandMAPCODE": "Bottega1234"
+}
+,
+"120": {
+    "brd_id": "BRD1",
+    "brd_name": "Bottega Verde",
+    "brd_detail": "Bottega Verde details",
+    "brd_logo": "brd_logo-1620847636.png",
+    "brd_status": "Active",
+    "brd_BrandMAPCODE": "Bottega1234"
+}
+,
+"123": {
+    "brd_id": "BRD1",
+    "brd_name": "Bottega Verde",
+    "brd_detail": "Bottega Verde details",
+    "brd_logo": "brd_logo-1620847636.png",
+    "brd_status": "Active",
+    "brd_BrandMAPCODE": "Bottega1234"
+}
+,
+"124": {
+    "brd_id": "BRD1",
+    "brd_name": "Bottega Verde",
+    "brd_detail": "Bottega Verde details",
+    "brd_logo": "brd_logo-1620847636.png",
+    "brd_status": "Active",
+    "brd_BrandMAPCODE": "Bottega1234"
+}
+
+
+
+    
+}

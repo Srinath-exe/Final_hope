@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hope/Model/register_model.dart';
 import 'package:hope/Screens/referral.dart';
 
 import 'package:otp_screen/otp_screen.dart';
 
 class VerificatioPage extends StatefulWidget {
+  PostRegister registermodel;
+  VerificatioPage({this.registermodel});
   @override
   _VerificatioPageState createState() => _VerificatioPageState();
 }

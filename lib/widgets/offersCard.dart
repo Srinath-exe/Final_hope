@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:clay_containers/clay_containers.dart';
+import 'package:hope/Model/OffersList.dart';
 
 class OffersCard extends StatefulWidget {
-  String link;
-  OffersCard({this.link});
+ GetOffersList offerList;
+  OffersCard({this.offerList});
   @override
   _OffersCardState createState() => _OffersCardState();
 }
 
 class _OffersCardState extends State<OffersCard> {
+  var imagePath="https://jerboa.in/usrfiles/";
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,7 +39,7 @@ class _OffersCardState extends State<OffersCard> {
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.white,
                   image: DecorationImage(
-                      image: NetworkImage(widget.link), fit: BoxFit.cover),
+                      image: NetworkImage(imagePath+widget.offerList.ofrBnrimg), fit: BoxFit.fill),
                 ),
               ),
             ],

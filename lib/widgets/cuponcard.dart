@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hope/Model/CouponDetails.dart';
+import 'package:hope/Model/CuponList.dart';
+import 'package:jiffy/jiffy.dart';
 
 class CuponRedeem extends StatefulWidget {
-  String company;
-  String date;
-  String logo;
-  String col;
-  bool valid;
-  CuponRedeem({this.company, this.date, this.logo, this.col,this.valid});
+
+GetCouponList coupon; 
+  String token;
+  String uuid;
+
+  CuponRedeem({this.coupon,this.token,this.uuid});
   @override
   _CuponRedeemState createState() => _CuponRedeemState();
 }
@@ -16,7 +19,8 @@ class _CuponRedeemState extends State<CuponRedeem> {
   @override
   Widget build(BuildContext context) {
   
-      
+     String date =  Jiffy(widget.coupon.cpnEnddate).yMMMMd;
+     print(date);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -41,7 +45,7 @@ class _CuponRedeemState extends State<CuponRedeem> {
                   child: Center(
                     child: RotatedBox(
                       quarterTurns: -1,
-                      child: Text('Discount',
+                      child: Text('${widget.coupon.cpnName}',
                           style: TextStyle(
                               fontSize: 22,
                               color: Colors.white,
@@ -60,10 +64,31 @@ class _CuponRedeemState extends State<CuponRedeem> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: Image.asset(
-                                  'assets/images/${widget.logo}.png')),
+              
+                                  height: MediaQuery.of(context).size.height * 0.08,
+                                  width: MediaQuery.of(context).size.width * 0.25,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                    Text('Amount',
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w400),),
+                              
+                            
+                                
+                                      Text('${widget.coupon.cpnAmount}Tsh',
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w400)),
+
+                             
+                              ]),
+                             
+                      ),
+                        
                           RichText(
                             text:  TextSpan(
                            
@@ -72,30 +97,24 @@ class _CuponRedeemState extends State<CuponRedeem> {
                                 color: Colors.black,
                               ),
                               children: <TextSpan>[
-                                 TextSpan(text:'${widget.company}\'s',  style:  TextStyle(
-                                        fontWeight: FontWeight.bold)),
-                                 TextSpan(
-                                    text: ' gift value',
-                                   ),
-                                    TextSpan(
-                                    text: '\npacked',
-                                   ),
                                    TextSpan(
-                                    text: ' 25% off', style:  TextStyle(
-                                        fontWeight: FontWeight.bold)
+                                    text: 'Cupon Number:\n',
                                    ),
-                                    TextSpan(
-                                    text: ' for \nevery pack.Gift',
-                                   ),
-                                     TextSpan(
-                                    text: ' Card\ncosts ',
-                                   ),
-                                     TextSpan(
-                                    text: ' 200 POINTS', style:  TextStyle(
-                                      fontSize:17,
-                                      color: Colors.blue,
-                                        fontWeight: FontWeight.bold)
-                                   ),
+                               
+                                 TextSpan(text:'  ${widget.coupon.cpnNumber}\n',  style:  TextStyle(
+                                        fontWeight: FontWeight.bold)),
+                                 
+                                  
+                                   
+                                  //    TextSpan(
+                                  //   text: ' Card\ncosts ',
+                                  //  ),
+                                  //    TextSpan(
+                                  //   text: '${widget.coupon.cpnAmount}Tsh', style:  TextStyle(
+                                  //     fontSize:17,
+                                  //     color: Colors.blue,
+                                  //       fontWeight: FontWeight.bold)
+                                   
                               ],
                             ),
                           )
@@ -112,22 +131,22 @@ class _CuponRedeemState extends State<CuponRedeem> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(children: [
-                            Text(  widget.valid==true?'Expires':'Expired',
+                            Text(  widget.coupon.cpnStatus=='Active'?'Expires on':'Expired',
                                 style: TextStyle(
                                     fontSize: 10,
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w400)),
-                            Text(widget.date,
+                            Text('$date',
                                 style: TextStyle(
                                     fontSize: 15,
-                                    color: widget.valid==true?Colors.black:Colors.red[900],
+                                    color: true==true?Colors.black:Colors.red[900],
                                     
                                     
                                     fontWeight: FontWeight.w600)),
                           ]),
                           Padding(
                             padding: const EdgeInsets.all(0.0),
-                            child: widget.valid==true? Container(
+                            child:  widget.coupon.cpnStatus=='Active'? Container(
                               width: MediaQuery.of(context).size.width * 0.3,
                               height: MediaQuery.of(context).size.height * 0.05,
                               child: ElevatedButton(

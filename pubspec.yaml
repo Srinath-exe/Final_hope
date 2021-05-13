@@ -42,6 +42,9 @@ dependencies:
   flutter_screenutil: ^5.0.0
   splash_screen_view: ^3.0.0
   http: ^0.13.3
+  shared_preferences: ^2.0.5
+  shimmer: ^2.0.0
+  jiffy: ^4.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

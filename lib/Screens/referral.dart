@@ -6,6 +6,8 @@ import 'package:hope/services/apiService.dart';
 import 'package:share/share.dart';
 
 class Referral extends StatefulWidget {
+  PostRegister registermodel;
+  Referral({this.registermodel});
   @override
   _ReferralState createState() => _ReferralState();
 }
@@ -13,11 +15,11 @@ class Referral extends StatefulWidget {
 class _ReferralState extends State<Referral> {
   ScrollController _controller;
   ApiService apiService;
-  PostRegister registermodel;
+
   @override
   void initState() {
     apiService = new ApiService();
-    registermodel = new PostRegister();
+    apiService = new ApiService();
     _controller = ScrollController(initialScrollOffset: 15);
     super.initState();
   }
@@ -65,7 +67,7 @@ class _ReferralState extends State<Referral> {
                   child: TextFormField(
                      onChanged: (value){
                                       setState(() {
-                                     registermodel.admRefferedBy= value;
+                                     widget.registermodel.admRefferedBy= value;
                                       });
                                     },
                     decoration: InputDecoration(
@@ -104,7 +106,18 @@ class _ReferralState extends State<Referral> {
                                 },
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              apiService.signUp(widget.registermodel).then((value) {
+                                if(value.error==false) {
+                                   Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HomePage()));
+                                }
+                              });
+
+                            },
                             child: Text(
                               'Redeem',
                               style: TextStyle(
@@ -135,8 +148,16 @@ class _ReferralState extends State<Referral> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      widget.registermodel.admRefferedBy= null;
+                     apiService.signUp(widget.registermodel).then((value) {
+                                if(value.error==false) {
+                                   Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HomePage()));
+                                }
+                              });
                     },
                     child: Text(
                       'Skip',

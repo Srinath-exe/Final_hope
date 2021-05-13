@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hope/Model/StoreListAll.dart';
+import 'package:hope/services/apiService.dart';
 import 'package:hope/widgets/storeCard.dart';
 
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Stores extends StatefulWidget {
   @override
@@ -9,9 +12,36 @@ class Stores extends StatefulWidget {
 }
 
 class _StoresState extends State<Stores> {
-  List<String> cityList = ['Dar es Salaam','Mwanza','Arusha','Dodoma'];
+  List<String> cityList = ['Dar es Salaam', 'Mwanza', 'Arusha', 'Dodoma'];
+  int _currentIndex = 0;
+  String token = '';
+  String uuid = '';
+  String imgpath = 'https://jerboa.in/usrfiles/';
+  ApiService apiService;
+  void gettokenAndUuid() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String tokentemp = preferences.getString('token');
+    String uuidtemp = preferences.getString('uuid');
+    String login = preferences.getString('logged');
+    print(login);
+
+    setState(() {
+      token = tokentemp;
+      uuid = uuidtemp;
+    });
+  }
+
+  @override
+  void initState() {
+    gettokenAndUuid();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    apiService = new ApiService(token: token);
+    print('token store: $token');
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
@@ -20,45 +50,76 @@ class _StoresState extends State<Stores> {
           title: Text('Stores', style: TextStyle(color: Colors.black))),
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      body: FloatingSearchBar(
-        transitionCurve: Curves.easeInOutCubic,
-        transition: CircularFloatingSearchBarTransition(),
-        physics: const BouncingScrollPhysics(),
-        builder: (context, _) => buildBody(),
-        body: Container(
-            height: 100,
-            width: 100,
-            child: SingleChildScrollView(
-              child: Container(
-                  child: Center(
-                child: Stack(
-                  children: [
-                    Column(
-                      children: [
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-                        StoreCard(
-                            city: 'Dar es Salaam',
-                            address:
-                                'POBOX- 9642, Bongoyo Road, \nOysterbay,Dar Es Salaam, \nTanzania, Eastern Africa.'),
-                        StoreCard(
-                            city: 'Mwanza',
-                            address:
-                                'POBOX- 9642, Bongoyo Road, \nOysterbay,Dar Es Salaam, \nTanzania, Eastern Africa.'),
-                        StoreCard(
-                            city: 'Mwanza',
-                            address:
-                                'POBOX- 9642, Bongoyo Road, \nOysterbay,Dar Es Salaam, \nTanzania, Eastern Africa.'),
-                        StoreCard(
-                            city: 'Dar es Salaam',
-                            address:
-                                'POBOX- 9642, Bongoyo Road, \nOysterbay,Dar Es Salaam, \nTanzania, Eastern Africa.'),
-                      ],
-                    ),
-                  ],
-                ),
-              )),
-            )),
-      ),
+      body: FutureBuilder(
+                            future: apiService.storelistall(),
+                            builder: (context, snapshot) {
+                              print(snapshot.data);
+                              if (snapshot.hasData) {
+                                List<GetStoreListAll> storeList = snapshot.data;
+                                return ListView.builder(
+                                    itemCount: storeList.length,
+                                    itemBuilder: (context, index) {
+                                      return StoreCard(
+                                        storeDetail: storeList[index],
+                                      );
+                                    });
+                              } else {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                            })
+        ,
+
+
+
+      // body: FloatingSearchBar(
+      //   transitionCurve: Curves.easeInOutCubic,
+      //   transition: CircularFloatingSearchBarTransition(),
+      //   physics: const BouncingScrollPhysics(),
+      //   builder: (context, _) => buildBody(),
+      //   body: 
+        
+        
+        
+        
+        //  Container(
+        //     height: 100,
+        //     width: 100,
+        //     child: SingleChildScrollView(
+        //       child: Container(
+        //           child: Center(
+        //         child: Stack(
+        //           children: [
+        //             Column(
+        //               children: [
+        //                 SizedBox(
+        //                     height: MediaQuery.of(context).size.height * 0.08),
+        //                 FutureBuilder(
+        //                     future: apiService.storelistall(),
+        //                     builder: (context, snapshot) {
+        //                       if (snapshot.hasData) {
+        //                         List<GetStoreListAll> storeList = snapshot.data;
+        //                         return ListView.builder(
+        //                             itemCount: storeList.length,
+        //                             itemBuilder: (context, index) {
+        //                               return StoreCard(
+        //                                 storeDetail: storeList[index],
+        //                               );
+        //                             });
+        //                       } else {
+        //                         return Center(
+        //                             child: CircularProgressIndicator());
+        //                       }
+        //                     })
+        //               ],
+        //             ),
+        //           ],
+        //         ),
+        //       )),
+        //     )),
+     
+     
+      // ),
     );
   }
 
@@ -68,18 +129,21 @@ class _StoresState extends State<Stores> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: Material(
-        child: Column(children: cityList.map((e){
-            return Container(child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Text(e,style: TextStyle(
-                    fontSize: 18, fontWeight: FontWeight.w600
-                  ),),
-                ],
-              ),
-            ));
-        }).toList()  ),
+        child: Column(
+            children: cityList.map((e) {
+          return Container(
+              child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Text(
+                  e,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          ));
+        }).toList()),
       ),
     );
   }

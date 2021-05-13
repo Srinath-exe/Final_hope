@@ -3,6 +3,7 @@ import 'package:hope/Model/Login_model.dart';
 import 'package:hope/Screens/homePage.dart';
 import 'package:hope/Screens/signup.dart';
 import 'package:hope/services/apiService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -255,17 +256,23 @@ class _LoginPageState extends State<LoginPage> {
                                             if (validate()) {
                                               apiService
                                                   .login(loginModel)
-                                                  .then((value) {
-                                                if (value.error == false) {
+                                                  .then((value)async {
+                                                if (value?.error == false) {
                                                   print("logged In");
+                                                  SharedPreferences preferences = await SharedPreferences.getInstance();
+                                                  preferences.setString('logged','true');
+                                                   Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HomePage()));
+                                                }
+                                                if(value==null){
+                                                   _showWrongDialog();
                                                 }
                                               });
                                             }
-                                            // Navigator.push(
-                                            //     context,
-                                            //     MaterialPageRoute(
-                                            //         builder: (context) =>
-                                            //             HomePage()));
+                                           
                                           },
                                         ),
                                       ),
@@ -311,8 +318,8 @@ class _LoginPageState extends State<LoginPage> {
 
   bool validate() {
     if (_formKey.currentState.validate()) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Processing Data')));
+      // ScaffoldMessenger.of(context)
+      //     .showSnackBar(SnackBar(content: Text('Processing Data')));
           return true;
     }else{
       return false;

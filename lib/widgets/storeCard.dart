@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hope/Model/StoreListAll.dart';
 
 class StoreCard extends StatefulWidget {
-  String city;
-  String address;
-  StoreCard({this.city, this.address});
+ GetStoreListAll storeDetail;
+  StoreCard({this.storeDetail});
   @override
   _StorCcardState createState() => _StorCcardState();
 }
@@ -37,7 +37,7 @@ class _StorCcardState extends State<StoreCard> {
                             width:
                                 MediaQuery.of(context).size.width * 0.9 * 0.6,
                             child: Text(
-                                widget.city))
+                                widget.storeDetail.strCity))
                       ],
                     ),
                     Row(
@@ -47,7 +47,7 @@ class _StorCcardState extends State<StoreCard> {
                         Container(
                             width:
                                 MediaQuery.of(context).size.width * 0.9 * 0.6,
-                            child: Text(widget.address))
+                            child: Text(widget.storeDetail.strAddress))
                                 // 'POBOX- 9642, Bongoyo Road, \nOysterbay,Dar Es Salaam, \nTanzania, Eastern Africa.'))
                       ],
                     ),
@@ -58,7 +58,7 @@ class _StorCcardState extends State<StoreCard> {
                         Container(
                             width:
                                 MediaQuery.of(context).size.width * 0.9 * 0.6,
-                            child: Text('+255-622600096'))
+                            child: Text('${widget.storeDetail.strPhone}'))
                       ],
                     ),
                     Row(
@@ -68,7 +68,7 @@ class _StorCcardState extends State<StoreCard> {
                         Container(
                             width:
                                 MediaQuery.of(context).size.width * 0.9 * 0.6,
-                            child: Text('info@hopeholding.co.tz'))
+                            child: Text('${widget.storeDetail.strEmail}'))
                       ],
                     )
                   ]),
