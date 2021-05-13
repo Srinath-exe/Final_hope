@@ -190,6 +190,31 @@ class SsignupState extends State<Signup> {
                                           hintText: 'Last Name'),
                                     ),
                                   ),
+                                   Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TextFormField(
+                                      onChanged: (value) {
+                                        setState(() {
+                                          registermodel.admEmail = value;
+                                        });
+                                      },
+                                       validator: (value) {
+                                            if (value == null || value.isEmpty) {
+                                              return 'Please enter Email';
+                                            }
+                                            return null;
+                                          },
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(Icons.email,
+                                              color: Color(0xffE58714)),
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                            const Radius.circular(60.0),
+                                          )),
+                                          hintText: 'Email'),
+                                    ),
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextFormField(

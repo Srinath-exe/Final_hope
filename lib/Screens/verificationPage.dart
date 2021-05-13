@@ -45,6 +45,8 @@ class _VerificatioPageState extends State<VerificatioPage> {
   }
 void moveToNextScreen(context) {
     Navigator.push(context, MaterialPageRoute(
-        builder: (context) => Referral()));
+        builder: (context) => Referral(
+          registermodel: widget.registermodel
+        )));
   }
 }

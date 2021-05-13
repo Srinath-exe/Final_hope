@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hope/Model/register_model.dart';
-import 'package:hope/Screens/homePage.dart';
+import 'package:hope/Screens/login.dart';
 import 'package:hope/services/apiService.dart';
 
 import 'package:share/share.dart';
@@ -108,12 +108,13 @@ class _ReferralState extends State<Referral> {
                             ),
                             onPressed: () {
                               apiService.signUp(widget.registermodel).then((value) {
-                                if(value.error==false) {
+                                print(postRegisterToJson(widget.registermodel));
+                                if(value) {
                                    Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        HomePage()));
+                                                        LoginPage()));
                                 }
                               });
 
@@ -150,12 +151,13 @@ class _ReferralState extends State<Referral> {
                     onPressed: () {
                       widget.registermodel.admRefferedBy= null;
                      apiService.signUp(widget.registermodel).then((value) {
-                                if(value.error==false) {
+
+                                if(value) {
                                    Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        HomePage()));
+                                                        LoginPage()));
                                 }
                               });
                     },

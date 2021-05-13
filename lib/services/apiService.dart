@@ -40,7 +40,7 @@ class ApiService {
       return null;
   }
 
-  Future<ResponseLogin> signUp(PostRegister registermodel) async {
+  Future<bool> signUp(PostRegister registermodel) async {
     var url = Uri.parse(baseUrl + "/admin_accountsCreate");
     var response = await http.post(
       url,
@@ -49,10 +49,9 @@ class ApiService {
     print('Singup response status: ${response.statusCode}');
     print('singup response body: ${response.body}');
     if (response.statusCode == 201) {
-      ResponseLogin responseLogin = responseLoginFromJson(response.body);
-      return responseLogin;
+      return true;
     } else
-      return null;
+      return false;
   }
 
   Future<List<GetBrandList>> brandlist() async {

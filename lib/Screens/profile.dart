@@ -64,7 +64,6 @@ class _ProfileState extends State<Profile> {
                 builder: (context, snapshot) {
                   print('snap : ${snapshot.data}');
                   if (snapshot.hasData) {
-
                     ProfileModel profile = snapshot.data;
                     return Container(
                         height: MediaQuery.of(context).size.height * 0.25,
@@ -85,7 +84,8 @@ class _ProfileState extends State<Profile> {
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
-                                            child: Text('${profile.admFname} ${profile.admLname}',
+                                            child: Text(
+                                                '${profile.admFname} ${profile.admLname}',
                                                 style: TextStyle(
                                                     fontSize: 30,
                                                     color: Colors.black,
@@ -130,11 +130,6 @@ class _ProfileState extends State<Profile> {
                                     children: [
                                       Row(
                                         children: [
-                                          Container(
-                                            height:100,
-                                            width:100,
-                                            color: Colors.black
-                                          ),
                                           Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -142,16 +137,17 @@ class _ProfileState extends State<Profile> {
                                                   baseColor: Colors.grey[100],
                                                   highlightColor: Colors.white,
                                                   child: Container(
+                                                      color: Colors.grey,
                                                       height:
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.1,
+                                                              0.04,
                                                       width:
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .width *
-                                                              0.2))),
+                                                              0.4))),
                                         ],
                                       ),
                                       Row(
@@ -163,16 +159,17 @@ class _ProfileState extends State<Profile> {
                                                   baseColor: Colors.grey[100],
                                                   highlightColor: Colors.white,
                                                   child: Container(
+                                                      color: Colors.grey,
                                                       height:
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height *
-                                                              0.1,
+                                                              0.04,
                                                       width:
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .width *
-                                                              0.2))),
+                                                              0.3))),
                                         ],
                                       ),
                                     ],
@@ -443,11 +440,13 @@ class _ProfileState extends State<Profile> {
                       Icon(Icons.logout, size: 20, color: Colors.redAccent),
                     ],
                   ),
-                  onPressed: () {
-                    setState(() {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => LoginPage()));
-                    });
+                  onPressed: () async {
+                    SharedPreferences preferences =
+                        await SharedPreferences.getInstance();
+                    preferences.setString('logged', '');
+
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
                   }),
             ),
             // ListTile(
