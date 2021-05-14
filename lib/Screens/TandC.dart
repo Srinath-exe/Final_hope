@@ -22,13 +22,17 @@ class _TnCState extends State<TnC> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              Text(
-                'Terms & Conditions',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                ),
+              Row(
+                children: [
+                  Text(
+                    'Terms & Conditions',
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               Padding(

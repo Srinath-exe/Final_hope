@@ -1,7 +1,10 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hope/Model/register_model.dart';
 import 'package:hope/Screens/verificationPage.dart';
 import 'package:hope/services/apiService.dart';
+import 'package:hope/widgets/progressHUD.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -21,7 +24,17 @@ class SsignupState extends State<Signup> {
     super.initState();
   }
 
+  bool isApiCallProcess = false;
+  @override
   Widget build(BuildContext context) {
+    return ProgressHUD(
+      child: _uiSetup(context),
+      inAsyncCall: isApiCallProcess,
+      opacity: 0.4,
+    );
+  }
+
+  Widget _uiSetup(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -30,7 +43,7 @@ class SsignupState extends State<Signup> {
           width: MediaQuery.of(context).size.width,
           child: Form(
             key: _formKey,
-                      child: Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
@@ -114,11 +127,11 @@ class SsignupState extends State<Signup> {
                     child: Column(
                       children: [
                         Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
+                            width: MediaQuery.of(context).size.width * 0.4,
                             child: Image.asset('assets/images/hopelogo.png')),
                         Text("P O I N T",
                             style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.w700)),
+                                fontSize: 20, fontWeight: FontWeight.w700)),
                       ],
                     ),
                   ),
@@ -135,7 +148,8 @@ class SsignupState extends State<Signup> {
                             color: Colors.transparent,
                             width: MediaQuery.of(context).size.width * 0.8,
                             child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   // SizedBox(
                                   //     height: MediaQuery.of(context).size.height *
@@ -148,12 +162,12 @@ class SsignupState extends State<Signup> {
                                           registermodel.admFname = value;
                                         });
                                       },
-                                        validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'Please enter First name';
-                                            }
-                                            return null;
-                                          },
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter First name';
+                                        }
+                                        return null;
+                                      },
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(Icons.account_circle,
                                               color: Color(0xffE58714)),
@@ -173,12 +187,12 @@ class SsignupState extends State<Signup> {
                                           registermodel.admLname = value;
                                         });
                                       },
-                                       validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'Please enter last name';
-                                            }
-                                            return null;
-                                          },
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter last name';
+                                        }
+                                        return null;
+                                      },
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(Icons.account_circle,
                                               color: Color(0xffE58714)),
@@ -190,20 +204,29 @@ class SsignupState extends State<Signup> {
                                           hintText: 'Last Name'),
                                     ),
                                   ),
-                                   Padding(
+                                  Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextFormField(
+                                      keyboardType: TextInputType.emailAddress,
                                       onChanged: (value) {
                                         setState(() {
                                           registermodel.admEmail = value;
                                         });
                                       },
-                                       validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'Please enter Email';
-                                            }
-                                            return null;
-                                          },
+                                      validator: (value) {
+                                        print(RegExp(
+                                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                            .hasMatch(value));
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter Email';
+                                        }
+                                        if (!RegExp(
+                                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                            .hasMatch(value)) {
+                                          return 'Please enter a valid Email';
+                                        }
+                                        return null;
+                                      },
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(Icons.email,
                                               color: Color(0xffE58714)),
@@ -218,17 +241,22 @@ class SsignupState extends State<Signup> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextFormField(
+                                      keyboardType: TextInputType.number,
                                       onChanged: (value) {
                                         setState(() {
                                           registermodel.admMobile = value;
                                         });
                                       },
-                                       validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'Please enter Phone no.';
-                                            }
-                                            return null;
-                                          },
+                                      validator: validateMobile,
+                                      // (value) {
+                                      //   if (value == null || value.isEmpty) {
+                                      //     return 'Please enter Phone No.';
+                                      //   }
+                                      //   if( value.length!=10){
+                                      //     return 'Please enter Valid Phone No.';
+                                      //   }
+                                      //   return null;
+                                      // },
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                               Icons.phone_android_outlined,
@@ -253,15 +281,15 @@ class SsignupState extends State<Signup> {
                                     child: TextFormField(
                                       onChanged: (value) {
                                         setState(() {
-                                          registermodel.admSecert = value;
+                                          registermodel.admSecret = value;
                                         });
                                       },
-                                       validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'Please enter Password';
-                                            }
-                                            return null;
-                                          },
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter Password';
+                                        }
+                                        return null;
+                                      },
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(Icons.lock_outline,
                                               color: Color(0xffE58714)),
@@ -277,10 +305,11 @@ class SsignupState extends State<Signup> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
-                                      width:
-                                          MediaQuery.of(context).size.width * 0.4,
-                                      height: MediaQuery.of(context).size.height *
-                                          0.06,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.06,
                                       child: ElevatedButton(
                                           style: ButtonStyle(
                                             shape: MaterialStateProperty.all<
@@ -290,10 +319,11 @@ class SsignupState extends State<Signup> {
                                                         BorderRadius.circular(
                                                             30.0),
                                                     side: BorderSide(
-                                                        color:
-                                                            Colors.transparent))),
-                                            backgroundColor: MaterialStateProperty
-                                                .resolveWith<Color>(
+                                                        color: Colors
+                                                            .transparent))),
+                                            backgroundColor:
+                                                MaterialStateProperty
+                                                    .resolveWith<Color>(
                                               (Set<MaterialState> states) {
                                                 if (states.contains(
                                                     MaterialState.pressed))
@@ -311,15 +341,75 @@ class SsignupState extends State<Signup> {
                                           ),
                                           onPressed: () {
                                             if (validate()) {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          VerificatioPage(registermodel: registermodel,)));
-                                            }
-                                            else{
-                                               
-                                            }
+                                              setState(() {
+                                                isApiCallProcess = true;
+                                              });
+                                              registermodel.admRefferedBy =
+                                                  null;
+                                              apiService
+                                                  .signUp(registermodel)
+                                                  .then((value) async {
+                                                if (value.error == false) {
+                                                  setState(() {
+                                                    isApiCallProcess = false;
+                                                  });
+                                                  SharedPreferences
+                                                      preferences =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  preferences.setString(
+                                                      'logged', 'true');
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              VerificatioPage(
+                                                                type: 'signup',
+                                                                otp: value.otp
+                                                                    .toString(),
+                                                              )));
+                                                }
+                                                if (value == null) {
+                                                  setState(() {
+                                                    isApiCallProcess = false;
+                                                  });
+                                                  AwesomeDialog(
+                                                    context: context,
+                                                    dialogType: DialogType.INFO,
+                                                    animType:
+                                                        AnimType.BOTTOMSLIDE,
+                                                    title: 'SignUp failed',
+                                                    desc:
+                                                        'Account already exists with this Email/Number',
+                                                    btnCancelOnPress: () {},
+                                                    btnOkOnPress: () {},
+                                                  )..show();
+                                                } else {
+                                                  setState(() {
+                                                    isApiCallProcess = false;
+                                                  });
+                                                  AwesomeDialog(
+                                                    context: context,
+                                                    dialogType: DialogType.WARNING,
+                                                    animType:
+                                                        AnimType.BOTTOMSLIDE,
+                                                    title: 'SignUp failed',
+                                                    desc:
+                                                        'Account already exists with this Email/Number',
+                                                    btnCancelOnPress: () {},
+                                                    btnOkOnPress: () {},
+                                                  )..show();
+                                                }
+                                              });
+                                              // Navigator.push(
+                                              //     context,
+                                              //     MaterialPageRoute(
+                                              //         builder: (context) =>
+                                              //             VerificatioPage(
+                                              //               registermodel:
+                                              //                   registermodel,
+                                              //             )));
+                                            } else {}
                                           }),
                                     ),
                                   ),
@@ -332,6 +422,17 @@ class SsignupState extends State<Signup> {
         ),
       ),
     );
+  }
+
+  String validateMobile(String value) {
+    String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = new RegExp(patttern);
+    if (value.length == 0) {
+      return 'Please enter mobile number';
+    } else if (!regExp.hasMatch(value)) {
+      return 'Please enter valid mobile number';
+    }
+    return null;
   }
 
   bool validate() {

@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:hope/Model/BrandDetails_model.dart';
 import 'package:hope/Model/BrandList_model.dart';
 import 'package:hope/Model/CuponList.dart';
 import 'package:hope/Model/Login_model.dart';
+import 'package:hope/Model/NotificationUserWise.dart';
 import 'package:hope/Model/OffersList.dart';
 import 'package:hope/Model/ProductlistAll.dart';
 import 'package:hope/Model/StoreListAll.dart';
@@ -40,7 +42,7 @@ class ApiService {
       return null;
   }
 
-  Future<bool> signUp(PostRegister registermodel) async {
+  Future<ResponseSignUp> signUp(PostRegister registermodel) async {
     var url = Uri.parse(baseUrl + "/admin_accountsCreate");
     var response = await http.post(
       url,
@@ -49,9 +51,18 @@ class ApiService {
     print('Singup response status: ${response.statusCode}');
     print('singup response body: ${response.body}');
     if (response.statusCode == 201) {
-      return true;
+      try {
+        ResponseSignUp responseSignUp = responseSignUpFromJson(response.body);
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setString('token', 'Bearer ${responseSignUp.token}');
+        preferences.setString('uuid', '${responseSignUp.uuid}');
+
+        return responseSignUp;
+      } catch (e) {
+        return null;
+      }
     } else
-      return false;
+      return null;
   }
 
   Future<List<GetBrandList>> brandlist() async {
@@ -68,14 +79,16 @@ class ApiService {
       return [];
   }
 
-  Future<ResponseLogin> branddetails() async {
-    var url = Uri.parse(baseUrl + "/system_brandsSelectOne/{brd_id}");
-    var response = await http.get(url);
-    print('brandlist response status: ${response.statusCode}');
-    print('brandlist response body: ${response.body}');
+  Future<GetBrandDetails> getbrandDetails({String brandId}) async {
+    var url = Uri.parse(baseUrl + "/system_brandsSelectOne/$brandId");
+    var response = await http.get(url, headers: {
+      HttpHeaders.authorizationHeader: 'Basic ${gettoken()}',
+    });
+    print('get Brand Detail response status: ${response.statusCode}');
+    print('get Brand Detail body: ${response.body}');
     if (response.statusCode == 201) {
-      ResponseLogin responseLogin = responseLoginFromJson(response.body);
-      return responseLogin;
+      GetBrandDetails getBrandDetails = getBrandDetailsFromJson(response.body);
+      return getBrandDetails;
     } else
       return null;
   }
@@ -120,7 +133,7 @@ class ApiService {
     });
     print('storelistall response status: ${response.statusCode}');
     debugPrint('storelistall response body: ${response.body}');
-    if (response.statusCode == 201) {
+    if (response.statusCode == 201||response.statusCode ==200) {
       print('dsfs ${getStoreListAllFromJson(response.body)}');
       List<GetStoreListAll> storeList = getStoreListAllFromJson(response.body);
       return storeList;
@@ -152,15 +165,22 @@ class ApiService {
       return null;
   }
 
-  Future<ResponseLogin> notificationuserwise() async {
-    var url =
-        Uri.parse(baseUrl + "/users_notificationSelectAll/{uuid}/{skp}/{lmt}");
-    var response = await http.get(url);
-    print('brandlist response status: ${response.statusCode}');
-    print('brandlist response body: ${response.body}');
+  Future<List<GetNotificationUserWise>> notificationuserwise(
+      String uuid) async {
+    var url = Uri.parse(baseUrl + "/users_notificationSelectAll/ADM2/0/100");
+    var response = await http.get(url, headers: {
+      HttpHeaders.authorizationHeader: 'Basic ${gettoken()}',
+    });
+    print('notification response status: ${response.statusCode}');
+    print('notification response body: ${response.body}');
     if (response.statusCode == 201) {
-      ResponseLogin responseLogin = responseLoginFromJson(response.body);
-      return responseLogin;
+      try {
+        List<GetNotificationUserWise> notificationuserwise =
+            getNotificationUserWiseFromJson(response.body);
+        return notificationuserwise;
+      } catch (e) {
+        return null;
+      }
     } else
       return null;
   }

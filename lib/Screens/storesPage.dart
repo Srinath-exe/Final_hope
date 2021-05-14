@@ -51,74 +51,76 @@ class _StoresState extends State<Stores> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: FutureBuilder(
-                            future: apiService.storelistall(),
-                            builder: (context, snapshot) {
-                              print(snapshot.data);
-                              if (snapshot.hasData) {
-                                List<GetStoreListAll> storeList = snapshot.data;
-                                return ListView.builder(
-                                    itemCount: storeList.length,
-                                    itemBuilder: (context, index) {
-                                      return StoreCard(
-                                        storeDetail: storeList[index],
-                                      );
-                                    });
-                              } else {
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              }
-                            })
-        ,
-
-
+          future: apiService.storelistall(),
+          builder: (context, snapshot) {
+            print(snapshot);
+            if (snapshot.hasData) {
+              List<GetStoreListAll> storeList = snapshot.data;
+              return ListView.builder(
+                  itemCount: storeList.length,
+                  itemBuilder: (context, index) {
+                    return StoreCard(
+                      storeDetail: storeList[index],
+                    );
+                  });
+            } else {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.warning_sharp,color:Colors.yellow,size: 50),
+                    Text('Unable to get Store List'),
+                  ],
+                ));
+              }
+              return Center(child: CircularProgressIndicator());
+            }
+          }),
 
       // body: FloatingSearchBar(
       //   transitionCurve: Curves.easeInOutCubic,
       //   transition: CircularFloatingSearchBarTransition(),
       //   physics: const BouncingScrollPhysics(),
       //   builder: (context, _) => buildBody(),
-      //   body: 
-        
-        
-        
-        
-        //  Container(
-        //     height: 100,
-        //     width: 100,
-        //     child: SingleChildScrollView(
-        //       child: Container(
-        //           child: Center(
-        //         child: Stack(
-        //           children: [
-        //             Column(
-        //               children: [
-        //                 SizedBox(
-        //                     height: MediaQuery.of(context).size.height * 0.08),
-        //                 FutureBuilder(
-        //                     future: apiService.storelistall(),
-        //                     builder: (context, snapshot) {
-        //                       if (snapshot.hasData) {
-        //                         List<GetStoreListAll> storeList = snapshot.data;
-        //                         return ListView.builder(
-        //                             itemCount: storeList.length,
-        //                             itemBuilder: (context, index) {
-        //                               return StoreCard(
-        //                                 storeDetail: storeList[index],
-        //                               );
-        //                             });
-        //                       } else {
-        //                         return Center(
-        //                             child: CircularProgressIndicator());
-        //                       }
-        //                     })
-        //               ],
-        //             ),
-        //           ],
-        //         ),
-        //       )),
-        //     )),
-     
-     
+      //   body:
+
+      //  Container(
+      //     height: 100,
+      //     width: 100,
+      //     child: SingleChildScrollView(
+      //       child: Container(
+      //           child: Center(
+      //         child: Stack(
+      //           children: [
+      //             Column(
+      //               children: [
+      //                 SizedBox(
+      //                     height: MediaQuery.of(context).size.height * 0.08),
+      //                 FutureBuilder(
+      //                     future: apiService.storelistall(),
+      //                     builder: (context, snapshot) {
+      //                       if (snapshot.hasData) {
+      //                         List<GetStoreListAll> storeList = snapshot.data;
+      //                         return ListView.builder(
+      //                             itemCount: storeList.length,
+      //                             itemBuilder: (context, index) {
+      //                               return StoreCard(
+      //                                 storeDetail: storeList[index],
+      //                               );
+      //                             });
+      //                       } else {
+      //                         return Center(
+      //                             child: CircularProgressIndicator());
+      //                       }
+      //                     })
+      //               ],
+      //             ),
+      //           ],
+      //         ),
+      //       )),
+      //     )),
+
       // ),
     );
   }

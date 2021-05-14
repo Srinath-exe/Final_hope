@@ -40,7 +40,7 @@ class GetStoreListAll {
         strCity: json["str_city"],
         strGeomap: json["str_geomap"],
         strZipcode: json["str_zipcode"],
-        brands: List<Brand>.from(json["brands"].map((x) => Brand.fromJson(x))),
+        brands: json["brands"]!=null?List<Brand>.from(json["brands"].map((x) => Brand.fromJson(x))):[],
     );
 
     Map<String, dynamic> toJson() => {

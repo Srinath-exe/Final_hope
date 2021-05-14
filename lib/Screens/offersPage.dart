@@ -86,7 +86,7 @@ class _OffersState extends State<Offers> {
                 }),
           );
         } else {
-          return Container(); //TODO:
+          return nilloffers(); 
         }
       },
     );
@@ -180,6 +180,35 @@ class _OffersState extends State<Offers> {
             child: Container(
               height: MediaQuery.of(context).size.height * 0.25,
               width: MediaQuery.of(context).size.width * 0.9,
+              color: Colors.grey[100],
+            ),
+          )),
+    );
+  }
+  nilloffers(){
+    return Container(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        emptyOfferscard(),
+          emptyOfferscard(),
+  emptyOfferscard(),    
+      ])),
+    );
+  }
+  emptyOfferscard(){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Material(
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[100],
+            highlightColor: Colors.white,
+            child: Container(
+                 height: MediaQuery.of(context).size.height * 0.28,
+          width: MediaQuery.of(context).size.width * 0.40,
               color: Colors.grey[100],
             ),
           )),

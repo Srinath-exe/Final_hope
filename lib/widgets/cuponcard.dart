@@ -20,6 +20,7 @@ class _CuponRedeemState extends State<CuponRedeem> {
   Widget build(BuildContext context) {
   
      String date =  Jiffy(widget.coupon.cpnEnddate).yMMMMd;
+      String strdate =  Jiffy(widget.coupon.cpnStrtdate).yMMMMd;
      print(date);
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -28,7 +29,7 @@ class _CuponRedeemState extends State<CuponRedeem> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15))),
         child: Container(
-      
+          
             width: MediaQuery.of(context).size.width * 0.9,
             height: MediaQuery.of(context).size.height * 0.20,
             child: Row(
@@ -124,26 +125,55 @@ class _CuponRedeemState extends State<CuponRedeem> {
                     ),
                     Container(
                       color: Colors.transparent,
+
                       width: MediaQuery.of(context).size.width * 0.9 * 0.75,
                       
-
+                                                                                                                                                                                                                                       
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(children: [
-                            Text(  widget.coupon.cpnStatus=='Active'?'Expires on':'Expired',
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w400)),
-                            Text('$date',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: true==true?Colors.black:Colors.red[900],
-                                    
-                                    
-                                    fontWeight: FontWeight.w600)),
-                          ]),
+
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(  widget.coupon.cpnStatus=='Active'?'Starts from':'Starteds',
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w500)),
+                                           Text('$strdate',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: true==true?Colors.black:Colors.red[900],
+                                      
+                                      
+                                      fontWeight: FontWeight.w600)),
+                                  ],
+                                ),
+                             
+                              Column(
+                                children: [
+                                  Text(  widget.coupon.cpnStatus=='Active'?'Expires on':'Expired',
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w500)),
+                                            Text('$date',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: true==true?Colors.black:Colors.red[900],
+                                      
+                                      
+                                      fontWeight: FontWeight.w600)),
+                                ],
+                              ),
+                            
+                            ]),
+                          ),
                           Padding(
                             padding: const EdgeInsets.all(0.0),
                             child:  widget.coupon.cpnStatus=='Active'? Container(

@@ -19,7 +19,7 @@ class _StorCcardState extends State<StoreCard> {
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Container(
             width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.18,
+            height: MediaQuery.of(context).size.height * 0.22,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -32,12 +32,13 @@ class _StorCcardState extends State<StoreCard> {
                      Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Store Name:'),
+                        Text('Store Name:',style:TextStyle(fontSize: 15)),
                         Container(
                             width:
                                 MediaQuery.of(context).size.width * 0.9 * 0.6,
                             child: Text(
-                                widget.storeDetail.strStorename))
+                                widget.storeDetail.strStorename,
+                                style:TextStyle(fontSize: 18,fontWeight: FontWeight.w600)))
                       ],
                     ),
                      Row(
@@ -48,7 +49,7 @@ class _StorCcardState extends State<StoreCard> {
                             width:
                                 MediaQuery.of(context).size.width * 0.9 * 0.6,
                             child: Text(
-                                widget.storeDetail.strCity))
+                                widget.storeDetail.strCity,style:TextStyle(fontSize: 16, fontWeight: FontWeight.w600)))
                       ],
                     ),
                     Row(
@@ -59,6 +60,17 @@ class _StorCcardState extends State<StoreCard> {
                             width:
                                 MediaQuery.of(context).size.width * 0.9 * 0.6,
                             child: Text(widget.storeDetail.strAddress))
+                                // 'POBOX- 9642, Bongoyo Road, \nOysterbay,Dar Es Salaam, \nTanzania, Eastern Africa.'))
+                      ],
+                    ),
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Zipcode:'),
+                        Container(
+                            width:
+                                MediaQuery.of(context).size.width * 0.9 * 0.6,
+                            child: Text(widget.storeDetail.strZipcode))
                                 // 'POBOX- 9642, Bongoyo Road, \nOysterbay,Dar Es Salaam, \nTanzania, Eastern Africa.'))
                       ],
                     ),

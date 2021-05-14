@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hope/Model/register_model.dart';
+import 'package:hope/Screens/homePage.dart';
 import 'package:hope/Screens/login.dart';
 import 'package:hope/services/apiService.dart';
+import 'package:hope/widgets/progressHUD.dart';
 
 import 'package:share/share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Referral extends StatefulWidget {
   PostRegister registermodel;
@@ -15,6 +18,7 @@ class Referral extends StatefulWidget {
 class _ReferralState extends State<Referral> {
   ScrollController _controller;
   ApiService apiService;
+  bool isApiCallProcess = false;
 
   @override
   void initState() {
@@ -24,7 +28,16 @@ class _ReferralState extends State<Referral> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
+    return ProgressHUD(
+      child: _uiSetup(context),
+      inAsyncCall: isApiCallProcess,
+      opacity: 0.4,
+    );
+  }
+
+  Widget _uiSetup(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -65,11 +78,11 @@ class _ReferralState extends State<Referral> {
                   width: MediaQuery.of(context).size.width * 0.75,
                   height: MediaQuery.of(context).size.height * 0.06,
                   child: TextFormField(
-                     onChanged: (value){
-                                      setState(() {
-                                     widget.registermodel.admRefferedBy= value;
-                                      });
-                                    },
+                    onChanged: (value) {
+                      setState(() {
+                        widget.registermodel.admRefferedBy = value;
+                      });
+                    },
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey[50],
@@ -107,17 +120,30 @@ class _ReferralState extends State<Referral> {
                               ),
                             ),
                             onPressed: () {
-                              apiService.signUp(widget.registermodel).then((value) {
-                                print(postRegisterToJson(widget.registermodel));
-                                if(value) {
-                                   Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        LoginPage()));
-                                }
+                                Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomePage()));
+                              setState(() {
+                                isApiCallProcess = true;
                               });
-
+                              // apiService
+                              //     .signUp(widget.registermodel)
+                              //     .then((value) async {
+                              //   print(postRegisterToJson(widget.registermodel));
+                              //   if (value.error == false) {
+                              //     setState(() {
+                              //       isApiCallProcess = false;
+                              //     });
+                              //     SharedPreferences preferences =
+                              //         await SharedPreferences.getInstance();
+                              //     preferences.setString('logged', 'true');
+                              //     Navigator.push(
+                              //         context,
+                              //         MaterialPageRoute(
+                              //             builder: (context) => HomePage()));
+                              //   }
+                              // });
                             },
                             child: Text(
                               'Redeem',
@@ -149,17 +175,26 @@ class _ReferralState extends State<Referral> {
                       ),
                     ),
                     onPressed: () {
-                      widget.registermodel.admRefferedBy= null;
-                     apiService.signUp(widget.registermodel).then((value) {
-
-                                if(value) {
-                                   Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        LoginPage()));
-                                }
-                              });
+                      setState(() {
+                        isApiCallProcess = true;
+                      });
+                      widget.registermodel.admRefferedBy = null;
+                      apiService
+                          .signUp(widget.registermodel)
+                          .then((value) async {
+                        if (value.error == false) {
+                          setState(() {
+                            isApiCallProcess = false;
+                          });
+                          SharedPreferences preferences =
+                              await SharedPreferences.getInstance();
+                          preferences.setString('logged', 'true');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()));
+                        }
+                      });
                     },
                     child: Text(
                       'Skip',

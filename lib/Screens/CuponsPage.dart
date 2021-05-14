@@ -57,21 +57,7 @@ class _CuponsPageState extends State<CuponsPage> {
                 child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.15,
-                color: Colors.transparent,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Total points',
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w400)),
-                    Text('800',
-                        style: TextStyle(
-                            fontSize: 45, fontWeight: FontWeight.w400)),
-                  ],
-                )),
+            
             FutureBuilder(
                 future: apiService.couponlist(),
                 builder: (context, snapshot) {

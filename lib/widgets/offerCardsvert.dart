@@ -33,13 +33,13 @@ class _OffersCardvertState extends State<OffersCardvert> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.25,
+                height: MediaQuery.of(context).size.height * 0.28,
                 width: MediaQuery.of(context).size.width * 0.9,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.white,
                   image: DecorationImage(
-                      image: NetworkImage(imagePath+widget.offerList.ofrBnrimg), fit: BoxFit.cover),
+                      image: NetworkImage(imagePath+widget.offerList.ofrBnrimg), fit: BoxFit.fill),
                 ),
               ),
             ],

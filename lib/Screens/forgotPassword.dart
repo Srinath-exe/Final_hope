@@ -1,45 +1,24 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hope/Model/Login_model.dart';
-import 'package:hope/Screens/NewPassowrd.dart';
-import 'package:hope/Screens/homePage.dart';
-import 'package:hope/Screens/forgotPassword.dart';
-import 'package:hope/Screens/signup.dart';
-import 'package:hope/services/apiService.dart';
-import 'package:hope/widgets/progressHUD.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hope/Screens/verificationPage.dart';
 
-class LoginPage extends StatefulWidget {
+class ForgotPassword extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  ForgotPasswordState createState() => ForgotPasswordState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class ForgotPasswordState extends State<ForgotPassword> {
   ScrollController _controller;
-  ApiService apiService;
-  PostLogin loginModel;
+
+  String phoneno;
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
-    apiService = new ApiService();
-    loginModel = new PostLogin();
     _controller = ScrollController(initialScrollOffset: 15);
     super.initState();
   }
 
-  bool isApiCallProcess = false;
-  bool isvealidated = false;
-
-  @override
   Widget build(BuildContext context) {
-    return ProgressHUD(
-      child: _uiSetup(context),
-      inAsyncCall: isApiCallProcess,
-      opacity: 0.4,
-    );
-  }
-
-  Widget _uiSetup(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -105,10 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.08),
-                                  Text('Hello,        ',
-                                      style: TextStyle(fontSize: 25)),
-                                  Text('    Login!',
-                                      style: TextStyle(fontSize: 50)),
+                                  Icon(Icons.lock_outline, size: 120)
                                 ],
                               ),
                               decoration: ShapeDecoration(
@@ -132,12 +108,18 @@ class _LoginPageState extends State<LoginPage> {
                       height: MediaQuery.of(context).size.height * 0.20,
                       child: Column(
                         children: [
-                          Container(
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: Image.asset('assets/images/hopelogo.png')),
-                          Text("P O I N T",
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.04),
+                          Text("Reset password",
                               style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.w700)),
+                                  fontSize: 35, fontWeight: FontWeight.w600)),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.02),
+                          Text("Forgot your password?",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w600)),
                         ],
                       ),
                     ),
@@ -160,14 +142,22 @@ class _LoginPageState extends State<LoginPage> {
                                     SizedBox(
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.04),
+                                                0.02),
+                                    Text("Enter your registered phone number",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400)),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: TextFormField(
                                         keyboardType: TextInputType.number,
                                         onChanged: (value) {
                                           setState(() {
-                                            loginModel.email = value;
+                                            phoneno = value;
                                           });
                                         },
                                         validator: validateMobile,
@@ -191,69 +181,6 @@ class _LoginPageState extends State<LoginPage> {
                                         },
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: TextFormField(
-                                        onChanged: (value) {
-                                          setState(() {
-                                            loginModel.pass = value;
-                                          });
-                                        },
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter Password';
-                                          }
-                                          return null;
-                                        },
-                                        decoration: InputDecoration(
-                                            prefixIcon: Icon(Icons.lock_outline,
-                                                color: Color(0xffE58714)),
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                              const Radius.circular(30.0),
-                                            )),
-                                            hintText: 'Password'),
-                                        obscureText: true,
-                                        onTap: () {
-                                          _controller.animateTo(
-                                            _controller
-                                                .position.maxScrollExtent,
-                                            duration: Duration(seconds: 1),
-                                            curve: Curves.fastOutSlowIn,
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                    isvealidated
-                                        ? GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ForgotPassword()));
-                                              });
-                                            },
-                                            child: Container(
-                                              padding: const EdgeInsets.only(
-                                                  right: 16.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  Text('Forgot Password?',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Color(0xffE58714),
-                                                          fontWeight:
-                                                              FontWeight.w500)),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                        : Container(),
                                     SizedBox(
                                         height:
                                             MediaQuery.of(context).size.height *
@@ -290,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
                                             ),
                                           ),
                                           child: Text(
-                                            'Login',
+                                            'Continue',
                                             style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
@@ -298,80 +225,16 @@ class _LoginPageState extends State<LoginPage> {
                                           ),
                                           onPressed: () {
                                             if (validate()) {
-                                              setState(() {
-                                                isApiCallProcess = true;
-                                              });
-                                              apiService
-                                                  .login(loginModel)
-                                                  .then((value) async {
-                                                if (value?.error == false) {
-                                                  setState(() {
-                                                    isApiCallProcess = false;
-                                                  });
-                                                  print("logged In");
-                                                  SharedPreferences
-                                                      preferences =
-                                                      await SharedPreferences
-                                                          .getInstance();
-                                                  preferences.setString(
-                                                      'logged', 'true');
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              HomePage()));
-                                                }
-                                                if (value == null) {
-                                                  setState(() {
-                                                    isApiCallProcess = false;
-                                                    isvealidated = true;
-                                                  });
-                                                  AwesomeDialog(
-                                                    context: context,
-                                                    dialogType:
-                                                        DialogType.WARNING,
-                                                    animType:
-                                                        AnimType.BOTTOMSLIDE,
-                                                    title: 'Login failed',
-                                                    desc:
-                                                        'Invalid Username or Password',
-                                                    btnCancelOnPress: () {},
-                                                    btnOkOnPress: () {},
-                                                  )..show();
-                                                }
-                                              });
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.05,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text('Don\'t have an account?',
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w400)),
-                                          GestureDetector(
-                                            onTap: () {
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          Signup()));
-                                            },
-                                            child: Text('Sign Up!',
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xffE58714))),
-                                          ),
-                                        ],
+                                                          VerificatioPage(
+                                                            otp: "123456",
+                                                          )));
+                                            }
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ]))
@@ -403,33 +266,5 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       return false;
     }
-  }
-
-  Future<void> _showWrongDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Login Failed'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('Incorrect Credentials'),
-                Text('Please check Mobile number and Password'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Ok'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 }

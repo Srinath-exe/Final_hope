@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hope/Model/ProductlistAll.dart';
-import 'package:hope/widgets/productDetail.dart';
+import 'package:hope/Screens/productDetail.dart';
 
 class ProductCard extends StatefulWidget {
   GetProductListAll product;
