@@ -14,7 +14,7 @@ class _PurchasesState extends State<Purchases> {
           title: Text(
             'Purchases History',
             style: TextStyle(
-
+       
               color: Colors.black,
             ),
           ),
@@ -28,7 +28,7 @@ class _PurchasesState extends State<Purchases> {
                   child: Container(
                     
                     child: SingleChildScrollView(
-                      child: Column(children: [PurchaseRedeem(index: 0)]),
+                      child: Column(children: [PurchaseWallet()]),
                     ),
                   ),
         )

@@ -57,7 +57,6 @@ class _CuponsPageState extends State<CuponsPage> {
                 child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            
             FutureBuilder(
                 future: apiService.couponlist(),
                 builder: (context, snapshot) {
@@ -96,19 +95,23 @@ class _CuponsPageState extends State<CuponsPage> {
   Widget emptycuponcard() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Material(
-          elevation: 3,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15))),
-          child: Shimmer.fromColors(
-            baseColor: Colors.grey[100],
-            highlightColor: Colors.white,
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.20,
-              color: Colors.grey[100],
-            ),
-          )),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Material(
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15))),
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey[100],
+                highlightColor: Colors.white,
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: MediaQuery.of(context).size.height * 0.20,
+                  color: Colors.grey[100],
+                ),
+              )),
+        ],
+      ),
     );
   }
 }

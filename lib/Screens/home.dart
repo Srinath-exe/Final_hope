@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hope/Model/BrandList_model.dart';
+import 'package:hope/Model/OffersList.dart';
 import 'package:hope/Model/ProductlistAll.dart';
+import 'package:hope/Model/WalletModel.dart';
 import 'package:hope/services/apiService.dart';
 import 'package:hope/widgets/cupon.dart';
+import 'package:hope/widgets/nullcupon.dart';
+import 'package:hope/widgets/offerCardsvert.dart';
 import 'package:hope/widgets/productCard.dart';
+import 'package:http/retry.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -82,6 +87,15 @@ class _HomeState extends State<Home> {
               ],
             ),
             topDeals(),
+             Row(
+              children: [
+                Text('  Top Offers',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+              ],
+            ),
+            fas(),
+
           ]),
         ),
       ),
@@ -90,11 +104,23 @@ class _HomeState extends State<Home> {
 
   Widget cupon() {
     return Container(
-        child: CuponCard(
+        child:FutureBuilder(
+          future: apiService.getWallet(uuid),
+          builder: (context, snapshot){
+            if(snapshot.hasData){
+              GetWalletDetail getWalletDetail = snapshot.data;
+               return   CuponCard(
             name: 'Jonathan Reyes',
             no: '1234 6744 1234',
-            amount: '35 TSh',
-            points: 800.00));
+            amount: getWalletDetail.amount??'0',
+            points: double.parse(getWalletDetail.points)??0);
+             
+            }else{
+              return NullCoupon();
+            }
+          }
+        )
+    );
   }
 
   Widget carousel() {
@@ -324,6 +350,57 @@ class _HomeState extends State<Home> {
           )
         ]),
       ),
+    );
+  }
+  Widget fas() {
+    return FutureBuilder(
+      future: apiService.offerslist(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<GetOffersList> offerList = snapshot.data;
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: offerList.length,
+                itemBuilder: (context, index) {
+                  return OffersCardvert(
+                    offerList: offerList[index],
+                  );
+                }),
+          );
+        } else {
+          return nullOffer(); //TODO:
+        }
+      },
+    );
+  }
+   Widget nullOffer() {
+    return Container(
+      child: SingleChildScrollView(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        emptyOffercard(),
+    
+      ])),
+    );
+  }
+  Widget emptyOffercard() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Material(
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[100],
+            highlightColor: Colors.white,
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.25,
+              width: MediaQuery.of(context).size.width * 0.9,
+              color: Colors.grey[100],
+            ),
+          )),
     );
   }
 }

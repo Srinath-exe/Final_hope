@@ -4,17 +4,23 @@ import 'package:hope/Screens/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  Future<String> getLogin() async {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String log = preferences.getString('logged');
-    return log;
-  }
+  runApp(MyApp(login: log,));
+}
+
+class MyApp extends StatefulWidget {
+  String login;
+  MyApp({this.login});
+  // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Hope Point',
       theme: ThemeData(),
-      home: FutureBuilder(
-        future: getLogin(),
-        builder: (context, snapshot) {
-          if (snapshot.data == 'true') {
-            return HomePage();
-          } else {
-            return LoginPage();
-          }
-        },
-      ),
+      home: widget.login == 'true'? HomePage():LoginPage(),
     );
   }
 }

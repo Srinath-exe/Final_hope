@@ -1,152 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:hope/Model/CustomerPurchaseDetails.dart';
+import 'package:hope/Model/PurchaseSelectAll.dart';
 import 'package:hope/Screens/purchaseDetails.dart';
+import 'package:hope/services/apiService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
-class PurchaseRedeem extends StatefulWidget {
-  int index;
-  PurchaseRedeem({this.index});
+class PurchaseWallet extends StatefulWidget {
   @override
-  _PurchaseRedeemState createState() => _PurchaseRedeemState();
+  _PurchaseWalletState createState() => _PurchaseWalletState();
 }
 
-class _PurchaseRedeemState extends State<PurchaseRedeem> {
+class _PurchaseWalletState extends State<PurchaseWallet> {
+  ApiService apiService;
+  String token = '';
+  String uuid = '';
+  void gettokenAndUuid() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String tokentemp = preferences.getString('token');
+    String uuidtemp = preferences.getString('uuid');
+    String login = preferences.getString('logged');
+    apiService = new ApiService(token: token);
+    print(login);
+
+    setState(() {
+      token = tokentemp;
+      uuid = uuidtemp;
+    });
+  }
+
+  @override
+  void initState() {
+    gettokenAndUuid();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    apiService = new ApiService(token: token);
     return purchase();
   }
 
   Widget purchase() {
-    return SingleChildScrollView(
-        child: Column(
-      children: [
-        purchasecard('Red Tag', 'Yesterday,5:30 PM', 2, 40, 300.00),
-        redeemcard('Red Tag ', '21 March', 2, -40, 300.00),
-        purchasecard('Skechers', '24 Feburary', 1, 40, 450.00),
-        purchasecard('Flormar', '3 January', 2, 40, 300.00),
-        redeemcard('Skechers', '30-02-2021', 1, -40, 450.00),
-        purchasecard('Pappa Roti', '30-02-2021', 1, 40, 450.00),
-        purchasecard('Bottega Verde', '12-02-2021', 2, 40, 300.00),
-        purchasecard('Skechers', '30-02-2021', 1, 40, 450.00),
-        purchasecard('Flormar', '12-02-2021', 2, 40, 300.00),
-        purchasecard('Pappa Roti', '30-02-2021', 1, 40, 450.00),
-        purchasecard('Bottega Verde', '12-02-2021', 2, 40, 300.00),
-          purchasecard('Red Tag', 'Yesterday,5:30 PM', 2, 40, 300.00),
-        redeemcard('Red Tag ', '21 March', 2, -40, 300.00),
-        purchasecard('Skechers', '24 Feburary', 1, 40, 450.00),
-        purchasecard('Flormar', '3 January', 2, 40, 300.00),
-      ],
-    ));
-  }
-
-  Widget purchasecard(
-      String pname, String date, int items, int coins, double total) {
-    return Padding(
-      padding: const EdgeInsets.all(.0),
-      child: Material(
-        shadowColor: Colors.grey[100],
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15))),
-        child: GestureDetector(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => PurchaseDetails()));
-          },
-          child: Container(
-              height: MediaQuery.of(context).size.height * 0.08,
-              width: MediaQuery.of(context).size.width * 0.95,
-              decoration: BoxDecoration(),
+    return FutureBuilder(
+        future: apiService.getPurchasesSelectAll(uuid),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<GetPurchasesSelectAll> purchasesSelectAll = snapshot.data;
+            return Container(
+              width: MediaQuery.of(context).size.width,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                color: Colors.blue[100],
-                                borderRadius: BorderRadius.all(Radius.circular(100))
-                              ),
-                              padding: const EdgeInsets.all(8.0),
-                              child: (pname != 'Pappa Roti')
-                                  ? Icon(Icons.shopping_bag,
-                                      color: Colors.blue[300])
-                                  : Icon(Icons.restaurant,
-                                      color: Colors.blue[300]),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.35,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(pname,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500)),
-                                    ],
-                                  ),
-                                  SizedBox(height: 5),
-                                  // Row(
-                                  //   children: [
-                                  //     Text('$items items',
-                                  //         style: TextStyle(
-                                  //             fontSize: 15, fontWeight: FontWeight.w400)),
-                                  //   ],
-                                  // ),
-                                  Row(
-                                    children: [
-                                      Text('$date',
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text('+$coins Points',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.green[800],
-                                    fontWeight: FontWeight.w600)),
-                            Text('-$total TSh',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w500)),
-                          ],
-                        ),
-                      )
-                    ],
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.23,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: purchasesSelectAll.length,
+                      itemBuilder: (context, index) {
+                        return purchasecard1(purchasesSelectAll[index]);
+                      },
+                    ),
                   ),
-                  Divider(
-                    height: 2,
-                    thickness: 1,
-                    indent: 45,
-                  )
                 ],
-              )),
-        ),
-      ),
-    );
+              ),
+            );
+          } else {
+            return nullPurchase();
+          }
+        });
   }
 
-  Widget redeemcard(
-      String pname, String date, int items, int coins, double total) {
+  Widget purchaseCard(GetCustomerPurchaseDetails purchasedetail) {
     return Padding(
       padding: const EdgeInsets.all(.0),
       child: Material(
@@ -174,14 +100,15 @@ class _PurchaseRedeemState extends State<PurchaseRedeem> {
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Colors.orange[200],
-                                borderRadius: BorderRadius.all(Radius.circular(100))
-                              ),
+                                  color: Colors.blue[100],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(100))),
                               padding: const EdgeInsets.all(8.0),
-                              child: (pname != 'Pappa Roti')
+                              child: (true)
                                   ? Icon(Icons.shopping_bag,
-                                      color: Colors.blue[200])
-                                  : Icon(Icons.restaurant, color: Colors.amber),
+                                      color: Colors.blue[300])
+                                  : Icon(Icons.restaurant,
+                                      color: Colors.blue[300]),
                             ),
                           ),
                           Padding(
@@ -194,7 +121,7 @@ class _PurchaseRedeemState extends State<PurchaseRedeem> {
                                 children: [
                                   Row(
                                     children: [
-                                      Text(pname,
+                                      Text('pname',
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w500)),
@@ -203,7 +130,7 @@ class _PurchaseRedeemState extends State<PurchaseRedeem> {
                                   SizedBox(height: 5),
                                   Row(
                                     children: [
-                                      Text('$date',
+                                      Text('date',
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w400)),
@@ -220,12 +147,12 @@ class _PurchaseRedeemState extends State<PurchaseRedeem> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text('$coins Points',
+                            Text('+coins Points',
                                 style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.red[800],
+                                    color: Colors.green[800],
                                     fontWeight: FontWeight.w600)),
-                            Text('+$total TSh',
+                            Text('-total TSh',
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w500)),
                           ],
@@ -234,13 +161,187 @@ class _PurchaseRedeemState extends State<PurchaseRedeem> {
                     ],
                   ),
                   Divider(
-                    height: 1,
+                    height: 2,
                     thickness: 1,
                     indent: 45,
                   )
                 ],
               )),
         ),
+      ),
+    );
+  }
+
+  Widget purchasecard1(GetPurchasesSelectAll getPurchasesSelectAll) {
+    return Padding(
+      padding: const EdgeInsets.all(.0),
+      child: Material(
+        shadowColor: Colors.grey[100],
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15))),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PurchaseDetails(
+                        getPurchasesSelectAll: getPurchasesSelectAll)));
+          },
+          child: Container(
+              height: MediaQuery.of(context).size.height * 0.08,
+              width: MediaQuery.of(context).size.width * 0.95,
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.blue[100],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(100))),
+                              padding: const EdgeInsets.all(8.0),
+                              child: (true)
+                                  ? Icon(Icons.shopping_bag,
+                                      color: Colors.blue[300])
+                                  : Icon(Icons.restaurant,
+                                      color: Colors.blue[300]),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.35,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(getPurchasesSelectAll.strName,
+                                          textScaleFactor: 1,
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600)),
+                                    ],
+                                  ),
+                                  SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      Text(getPurchasesSelectAll.prcMobile,
+                                          textScaleFactor: 1,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("${getPurchasesSelectAll.prcAmountpaid} TSh",
+                                textScaleFactor: 1,
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500)),
+                            Row(
+                              children: [
+                                Text("${getPurchasesSelectAll.prcPointspent}",
+                                    textScaleFactor: 1,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.green[800],
+                                        fontWeight: FontWeight.w600)),
+                                Text(" Points",
+                                    textScaleFactor: 1,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.green[800],
+                                        fontWeight: FontWeight.w500)),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Divider(
+                    height: 2,
+                    thickness: 1,
+                    indent: 45,
+                  )
+                ],
+              )),
+        ),
+      ),
+    );
+  }
+
+  Widget nullPurchase() {
+    return SingleChildScrollView(
+        child: Container(
+      child: Column(children: [
+        purchaselaod(),
+        purchaselaod(),
+      ]),
+    ));
+  }
+
+  Widget purchaselaod() {
+    return Padding(
+      padding: const EdgeInsets.all(.0),
+      child: Material(
+        shadowColor: Colors.grey[100],
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15))),
+        child: Container(
+            height: MediaQuery.of(context).size.height * 0.08,
+            width: MediaQuery.of(context).size.width * 0.95,
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    height: MediaQuery.of(context).size.height * 0.068,
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[100],
+                      highlightColor: Colors.white,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.width * 0.95,
+                      ),
+                    )),
+                Divider(
+                  height: 2,
+                  thickness: 1,
+                  indent: 45,
+                )
+              ],
+            )),
       ),
     );
   }

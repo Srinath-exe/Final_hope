@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hope/services/apiService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CuponCard extends StatefulWidget {
+  
   String name;
    String no; 
    String amount; 
@@ -13,10 +16,37 @@ class CuponCard extends StatefulWidget {
 }
 
 class _CuponCardState extends State<CuponCard> {
-  
+    String token = '';
+  String uuid = '';
+  String imgpath = 'https://jerboa.in/usrfiles/';
+  ApiService apiService;
+
+  String adm = '';
+  void gettokenAndUuid() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String tokentemp = preferences.getString('token');
+    String uuidtemp = preferences.getString('uuid');
+    String login = preferences.getString('logged');
+    apiService = new ApiService(token: token);
+    print(login);
+
+    setState(() {
+      token = tokentemp;
+      uuid = uuidtemp;
+    });
+  }
+
+  @override
+  void initState() {
+    gettokenAndUuid();
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-     num max = 1000;
+    apiService = new ApiService(token: token);
+    print('uuid: $uuid');
+     num max = 1500;
     num rest = max - widget.points;
     int point = widget.points.toInt();
     int more = rest.toInt();
@@ -58,7 +88,7 @@ class _CuponCardState extends State<CuponCard> {
                             startAngle: 270,
                             endAngle: 270,
                             minimum: 0,
-                            maximum: 1000,
+                            maximum: 1500,
                             showLabels: false,
                             showTicks: false,
                             axisLineStyle: AxisLineStyle(
@@ -81,7 +111,7 @@ class _CuponCardState extends State<CuponCard> {
                                   positionFactor: 0.5,
                                   angle: 90,
                                   widget:
-                                      Text(widget.points.toStringAsFixed(0) + ' / 1000',
+                                      Text(widget.points.toStringAsFixed(0) + ' / $max',
                                           style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w700,
@@ -135,7 +165,7 @@ class _CuponCardState extends State<CuponCard> {
                                     color: Colors.white,
                                   ),
                                   child: Center(
-                                    child: Text(widget.amount,
+                                    child: Text('${widget.amount} TSh',
                                         style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.w600)),

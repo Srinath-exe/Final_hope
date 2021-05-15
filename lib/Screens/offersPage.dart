@@ -151,13 +151,13 @@ class _OffersState extends State<Offers> {
                 }),
           );
         } else {
-          return nullOferHori(); //TODO:
+          return nullOffer(); //TODO:
         }
       },
     );
   }
 
-  Widget nullOferHori() {
+  Widget nullOffer() {
     return Container(
       child: SingleChildScrollView(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -211,7 +211,8 @@ class _OffersState extends State<Offers> {
           width: MediaQuery.of(context).size.width * 0.40,
               color: Colors.grey[100],
             ),
-          )),
+          )
+          ),
     );
   }
 }

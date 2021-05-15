@@ -17,10 +17,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   ScrollController _controller;
   ApiService apiService;
+   bool _passwordVisible1;
   PostLogin loginModel;
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
+    _passwordVisible1 = false;
     apiService = new ApiService();
     loginModel = new PostLogin();
     _controller = ScrollController(initialScrollOffset: 15);
@@ -129,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     //image
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.20,
+                      height: MediaQuery.of(context).size.height * 0.21,
                       child: Column(
                         children: [
                           Container(
@@ -213,7 +215,22 @@ class _LoginPageState extends State<LoginPage> {
                                                     const BorderRadius.all(
                                               const Radius.circular(30.0),
                                             )),
-                                            hintText: 'Password'),
+                                            hintText: 'Password',
+                                            suffixIcon: IconButton(
+                          icon: Icon(
+                            // Based on passwordVisible state choose the icon
+                            _passwordVisible1
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Color(0xffE58714)
+                          ),
+                          onPressed: () {
+                            // Update the state i.e. toogle the state of passwordVisible variable
+                            setState(() {
+                              _passwordVisible1 = !_passwordVisible1;
+                            });
+                          },
+                        ),),
                                         obscureText: true,
                                         onTap: () {
                                           _controller.animateTo(

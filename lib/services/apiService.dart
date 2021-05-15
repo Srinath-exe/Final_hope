@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:hope/Model/BrandDetails_model.dart';
 import 'package:hope/Model/BrandList_model.dart';
 import 'package:hope/Model/CuponList.dart';
+import 'package:hope/Model/ForgotPassword.dart';
 import 'package:hope/Model/Login_model.dart';
 import 'package:hope/Model/NotificationUserWise.dart';
 import 'package:hope/Model/OffersList.dart';
 import 'package:hope/Model/ProductlistAll.dart';
+import 'package:hope/Model/PurchaseSelectAll.dart';
 import 'package:hope/Model/StoreListAll.dart';
+import 'package:hope/Model/WalletModel.dart';
 import 'package:hope/Model/productDetails.dart';
 import 'package:hope/Model/profile_model.dart';
 import 'package:hope/Model/register_model.dart';
@@ -133,7 +136,7 @@ class ApiService {
     });
     print('storelistall response status: ${response.statusCode}');
     debugPrint('storelistall response body: ${response.body}');
-    if (response.statusCode == 201||response.statusCode ==200) {
+    if (response.statusCode == 201 || response.statusCode == 200) {
       print('dsfs ${getStoreListAllFromJson(response.body)}');
       List<GetStoreListAll> storeList = getStoreListAllFromJson(response.body);
       return storeList;
@@ -315,11 +318,12 @@ class ApiService {
   }
 
   Future<ProfileModel> getProfile(String adm) async {
+    print('uuid $adm');
     var url = Uri.parse(baseUrl + "/admin_accountsSelectOne/$adm");
     var response = await http.get(url, headers: {
       HttpHeaders.authorizationHeader: 'Basic ${gettoken()}',
     });
-    print('Profile data ${response.statusCode}');
+    print('Profile data ${response.body}');
     if (response.statusCode == 201) {
       ProfileModel profile = profileModelFromJson(response.body);
       print(response.body);
@@ -327,5 +331,75 @@ class ApiService {
     } else {
       return null;
     }
+  }
+
+  Future<ResponseForgotPassword> forgotPassword(
+      PostForgotPassword forgotPasswordmodel) async {
+    var url = Uri.parse(baseUrl + "/admin_paswrdsForgot");
+    var response = await http.post(url,
+        body: postForgotPasswordToJson(forgotPasswordmodel));
+    print('forgotPassword response Status: ${response.statusCode}');
+    print('forgotPassword response body: ${response.body}');
+    if (response.statusCode == 201) {
+      ResponseForgotPassword responseForgotPassword =
+          responseForgotPasswordFromJson(response.body);
+
+      return responseForgotPassword;
+    } else
+      return null;
+  }
+
+  Future<bool> resetPassword(PostResetPassword postResetPassword) async {
+    var url = Uri.parse(baseUrl + "/admin_paswrdsReset");
+    var response =
+        await http.post(url, body: postResetPasswordToJson(postResetPassword));
+    print('resetPassword response Status: ${response.statusCode}');
+    print('resetPassword response body: ${response.body}');
+    if (response.statusCode == 201) {
+      if (response.body.length == 8) {
+        return true;
+      } else {
+        return false;
+      }
+    } else
+      return false;
+  }
+
+  Future<GetWalletDetail> getWallet(String admId) async {
+    print(admId);
+    var url = Uri.parse(baseUrl + "/users_purchasesSelectMy/$admId");
+    var response = await http.get(url, headers: {
+      HttpHeaders.authorizationHeader: 'Basic ${gettoken()}',
+    });
+    print('getWallet response Status: ${response.statusCode}');
+    print('getWallet response body: ${response.body}');
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      try {
+        GetWalletDetail getWallet = getWalletDetailFromJson(response.body);
+        return getWallet;
+      } catch (e) {
+        return null;
+      }
+    } else
+      return null;
+  }
+  Future<List<GetPurchasesSelectAll>> getPurchasesSelectAll(String admId) async {
+ print(admId);
+    var url = Uri.parse(baseUrl + "/users_purchasesSelectAll/$admId/0/100");
+    var response = await http.get(url, headers: {
+      HttpHeaders.authorizationHeader: 'Basic ${gettoken()}',
+      
+    });
+     print('Purchases Select All response Status: ${response.statusCode}');
+    print('Purchases Select All response body: ${response.body}');
+    if (response.statusCode == 201 ) {
+      try {
+        List<GetPurchasesSelectAll> purchasesSelectAll = getPurchasesSelectAllFromJson(response.body);
+        return purchasesSelectAll;
+      } catch (e) {
+        return null;
+      }
+    } else
+      return null;
   }
 }

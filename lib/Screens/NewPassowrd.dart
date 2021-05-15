@@ -1,7 +1,12 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:hope/Model/ForgotPassword.dart';
 import 'package:hope/Screens/login.dart';
+import 'package:hope/services/apiService.dart';
 
 class NewPassword extends StatefulWidget {
+  ResponseForgotPassword responseForgotPassword;
+  NewPassword({this.responseForgotPassword});
   @override
   _NewPasswordState createState() => _NewPasswordState();
 }
@@ -210,12 +215,36 @@ class _NewPasswordState extends State<NewPassword> {
                           ),
                           onPressed: () {
                             if (validate()) {
-                              if (password == passwordConfirm) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginPage()));
-                              }
+                              PostResetPassword postResetPassword =
+                                  new PostResetPassword(
+                                      admMobile: widget
+                                          .responseForgotPassword.admMobile,
+                                      otp: widget.responseForgotPassword.otp,
+                                      admId:
+                                          widget.responseForgotPassword.admId,
+                                      passcode: passwordConfirm);
+                              ApiService apiService = new ApiService();
+                              apiService
+                                  .resetPassword(postResetPassword)
+                                  .then((value) {
+                                if (value == true) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginPage()));
+                                } else {
+                                  AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.WARNING,
+                                    animType: AnimType.BOTTOMSLIDE,
+                                    title: 'Failed',
+                                    desc: 'Unable to process your request',
+                                    btnCancelOnPress: () {},
+                                    btnOkOnPress: () {},
+                                  )..show();
+                                }
+                              });
+                              if (password == passwordConfirm) {}
                             }
                           }),
                     ),

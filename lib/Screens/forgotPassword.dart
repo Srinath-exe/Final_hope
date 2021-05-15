@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hope/Model/ForgotPassword.dart';
 import 'package:hope/Model/Login_model.dart';
+import 'package:hope/Screens/PassResetOtp.dart';
 import 'package:hope/Screens/verificationPage.dart';
+import 'package:hope/services/apiService.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override
@@ -225,13 +228,29 @@ class ForgotPasswordState extends State<ForgotPassword> {
                                           ),
                                           onPressed: () {
                                             if (validate()) {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          VerificatioPage(
-                                                            otp: "123456",
-                                                          )));
+                                              ApiService apiService =
+                                                  new ApiService();
+                                              PostForgotPassword
+                                                  postForgotPassword =
+                                                  new PostForgotPassword(
+                                                      admMobile: phoneno);
+                                              apiService
+                                                  .forgotPassword(
+                                                      postForgotPassword)
+                                                  .then((value) {
+                                                if (value != null) {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              VerificatioPagePass(
+                                                                otp: value.otp.toString(),
+                                                                responseForgotPassword: value,
+                                                              )));
+                                                }else{
+
+                                                }
+                                              });
                                             }
                                           },
                                         ),

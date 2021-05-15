@@ -11,9 +11,7 @@ class NotificationPage extends StatefulWidget {
 class _NotificationPageState extends State<NotificationPage> {
   String token = '';
   String uuid = '';
-  bool _pinned = true;
-  bool _snap = false;
-  bool _floating = false;
+ 
   ApiService apiService;
   void gettokenAndUuid() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -40,28 +38,25 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     apiService = new ApiService(token: token);
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            backgroundColor: Color(0xff81BFCA),
-            pinned: this._pinned,
-            snap: this._snap,
-            floating: this._floating,
-            expandedHeight: MediaQuery.of(context).size.height * 0.3,
-            flexibleSpace: FlexibleSpaceBar(
-              title: const Text("Notifications",
-                  style: TextStyle(color: Colors.black)),
-              background: Container(
-                color: Color(0xff81BFCA),
-                height: MediaQuery.of(context).size.height * 0.35,
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset('assets/images/notificationimg.jpg'),
-              ),
+       appBar: AppBar(
+          title: Text(
+            'Notifications',
+            style: TextStyle(
+      
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
             ),
           ),
-          SliverToBoxAdapter(
-              // child: SingleChildScrollView(
-              child: FutureBuilder(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: Colors.white,
+          body:
+          
+               FutureBuilder(
                   future: apiService.notificationuserwise(uuid),
                   builder: (context, snapshot) {
                     print(snapshot);
@@ -71,7 +66,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       return Container(
                         color: Colors.white,
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.70,
+                        height: MediaQuery.of(context).size.height ,
                         child: ListView.builder(
                             itemCount: notificationuserwise.length,
                             itemBuilder: (context, index) {
@@ -82,99 +77,102 @@ class _NotificationPageState extends State<NotificationPage> {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.70,
+                          height: MediaQuery.of(context).size.height ,
                           child: Center(
                             child: Container(
-                              child: Text('No Notifications',style:TextStyle(
-                                fontSize: 20, color: Colors.cyan[400]
-                              )),
+                              child: Text('No Notifications',
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.cyan[400])),
                             ),
                           ),
                         );
                       }
                       return Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.70,
+                          height: MediaQuery.of(context).size.height ,
                           child: Center(child: CircularProgressIndicator()));
                     }
-                  }))
+                  }));
           //  ),
-        ],
-      ),
-    );
+        
+    
+  
   }
 
   Widget notify(GetNotificationUserWise getNotificationUserWise) {
-    String url = 'https://jerboa.in/usrfiles/';
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.08,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        border: Border.all(color: Color(0xff81BFCA), width: 0.1),
-      ),
-      child: ElevatedButton(
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.transparent))),
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.pressed))
-                  return Colors.grey[100];
-                return Colors.white;
-              },
-            ),
+    
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xff81BFCA), width: 0.1),
           ),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Row(
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.info,
-                    color: Color(0xff81BFCA),
-                  ),
-                ),
+                //  Image.network(url + getNotificationUserWise.msgBnrimg),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  width: MediaQuery.of(context).size.width * 0.80,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Image.network(url + getNotificationUserWise.msgBnrimg),
-                      Row(
-                        children: [
-                          Text(
+                  height: MediaQuery.of(context).size.height * 0.25,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                       
+                      image: DecorationImage(
+                          image:
+                              NetworkImage(getNotificationUserWise.msgBnrimg),
+                              fit:BoxFit.fill
+                  )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: Text(
                             getNotificationUserWise.msgSubject,
                             style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 18,
                               color: Colors.black,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            getNotificationUserWise.msgMessage,
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          child: Text(
+                            getNotificationUserWise.msgMessage,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Divider(
+                  thickness: 3,
+                  indent: 50,
+                  endIndent: 50,color: Colors.yellow[900],
+                )
               ],
-            )
-          ]),
-          onPressed: () {
-            setState(() {});
-          }),
-    );
+            ),
+          ),
+        ));
   }
 }
