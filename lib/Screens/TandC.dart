@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hope/Model/tnc_mode.dart';
+import 'package:hope/services/apiService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TnC extends StatefulWidget {
   @override
@@ -6,8 +10,30 @@ class TnC extends StatefulWidget {
 }
 
 class _TnCState extends State<TnC> {
+  ApiService apiService;
+  String token = '';
+  String uuid = '';
+  void gettokenAndUuid() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String tokentemp = preferences.getString('token');
+    String uuidtemp = preferences.getString('uuid');
+    String login = preferences.getString('logged');
+    print(login);
+    setState(() {
+      token = tokentemp;
+      uuid = uuidtemp;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    gettokenAndUuid();
+  }
+
   @override
   Widget build(BuildContext context) {
+    apiService = new ApiService(token: token);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -18,104 +44,82 @@ class _TnCState extends State<TnC> {
         ),
         backgroundColor: Colors.white,
         body: Container(
-            child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    'Terms & Conditions',
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          '-Spend 100,000 & above and get 30,000 discount  \n on purchase.', style: TextStyle(
-                              fontSize: 15,)
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          '-For further communcation on promtion and \n registration of loyality program,provide your \n personal details.',style: TextStyle(
-                              fontSize: 15,)
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          '-Voucher cannot be redeemed or exchanged \n for cash.',style: TextStyle(
-                              fontSize: 15,)
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          '-Voucher must be presented at the Cash Counter \n at the time of purchase.',style: TextStyle(
-                              fontSize: 15,)
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          '-Voucher must be presented at the Cash Counter \n at the time of purchase.',style: TextStyle(
-                              fontSize: 15,)
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          '-Voucher is not Transferable or Partially \n redeemable.',style: TextStyle(
-                              fontSize: 15,)
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          '-Only one voucher per transaction.',style: TextStyle(
-                              fontSize: 15,)
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          '-Voucher is valid on only regular price iteams \n (not on discounted merchandise ).',style: TextStyle(
-                              fontSize: 15,)
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          '-Any dispute should be reffered to the Company \n and the decision of the Company shall be final.',style: TextStyle(
-                              fontSize: 15,)
-                        ),
-                      ],
+                    Text(
+                      'Terms & Conditions',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),
-              )
-            ],
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                Expanded(
+                  // height: MediaQuery.of(context).size.height *0.,
+                  child: Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: FutureBuilder(
+                          future: apiService.getTnC(),
+                          builder: (context, snapshot) {
+                            List<TncElement> tncList = snapshot.data;
+                            if (snapshot.hasData) {
+                              return Scrollbar(
+                                isAlwaysShown: true,
+                                
+                                child: ListView.builder(
+                                  itemCount:tncList.length ,
+                                  itemBuilder: (context,index){
+                                    return tncElement(tncList[index],index+1);
+                                  }),
+                              );
+                            } else {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          })),
+                )
+              ],
+            ),
           ),
-        )));
+        ));
+  }
+
+  Widget tncElement(TncElement tncElement,int index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Row(
+                children: [
+                  Text(
+                    "$index. ${tncElement.subject}",
+                    style:GoogleFonts.montserrat(textStyle:TextStyle(
+                        color: Color(0xffe3650b),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,),)
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.006
+            ),
+            Text(
+                '${tncElement.text}',style:GoogleFonts.raleway(textStyle:TextStyle()))
+          ],
+        ),
+      ),
+    );
   }
 }

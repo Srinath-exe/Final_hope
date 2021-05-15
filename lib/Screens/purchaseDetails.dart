@@ -181,7 +181,7 @@ class _PurchaseDetailsState extends State<PurchaseDetails> {
                                             widget.getPurchasesSelectAll
                                                         .prcCoupon ==
                                                     ''
-                                                ? "No Coupan Used"
+                                                ? "No coupon  Used"
                                                 : "${widget.getPurchasesSelectAll.prcCoupon}",
                                             style: TextStyle(
                                                 fontSize: 18,

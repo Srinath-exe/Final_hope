@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hope/Screens/homePage.dart';
 import 'package:hope/Screens/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,9 +8,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences preferences = await SharedPreferences.getInstance();
+     WidgetsFlutterBinding.ensureInitialized();
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
+    .then((_) {
     String log = preferences.getString('logged');
-  runApp(MyApp(login: log,));
+                            runApp(MyApp(login: log,));
 }
+    );}
 
 class MyApp extends StatefulWidget {
   String login;

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hope/Model/WalletModel.dart';
 import 'package:hope/services/apiService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CuponCard extends StatefulWidget {
-  String no;
-  String amount;
-  double points;
-  CuponCard({this.no, this.amount, this.points});
+ GetWalletDetail walletDetail;
+  CuponCard({this.walletDetail});
   @override
   _CuponCardState createState() => _CuponCardState();
 }
@@ -45,9 +44,25 @@ class _CuponCardState extends State<CuponCard> {
   Widget build(BuildContext context) {
     apiService = new ApiService(token: token);
     print('uuid: $uuid');
-    num max = 1500;
-    num rest = max - widget.points;
-    int point = widget.points.toInt();
+   
+   
+    int point = double.parse(widget.walletDetail.points).round();
+     double p= double.parse(widget.walletDetail.points);
+      num max;
+     if(point<250){
+        max = 250;
+
+     }else if(point<500){
+      max = 500;
+      }else if(point<750){
+      max = 750;
+      }else if(point<1000){
+      max = 1000;
+      }else if(point<1500){
+        max=1500;
+      }
+
+      num rest = max - double.parse(widget.walletDetail.points);
     int more = rest.toInt();
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -97,7 +112,7 @@ class _CuponCardState extends State<CuponCard> {
                             ),
                             pointers: <GaugePointer>[
                               RangePointer(
-                                value: widget.points,
+                                value: p,
                                 width: 0.15,
                                 color: Colors.green,
                                 pointerOffset: 0.1,
@@ -110,7 +125,7 @@ class _CuponCardState extends State<CuponCard> {
                                   positionFactor: 0.5,
                                   angle: 90,
                                   widget: Text(
-                                      widget.points.toStringAsFixed(0) +
+                                     point.toStringAsFixed(0) +
                                           ' / $max',
                                       style: TextStyle(
                                         fontSize: 12,
@@ -119,6 +134,8 @@ class _CuponCardState extends State<CuponCard> {
                             ])
                       ]),
                     ),
+                    Text(widget.walletDetail.usrFname + ' '+ widget.walletDetail.usrLname,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600))
                   ],
                 ),
               ),
@@ -162,7 +179,7 @@ class _CuponCardState extends State<CuponCard> {
                                   color: Colors.white,
                                 ),
                                 child: Center(
-                                  child: Text('${widget.amount} TSh',
+                                  child: Text('${widget.walletDetail.amount} TSh',
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w600)),

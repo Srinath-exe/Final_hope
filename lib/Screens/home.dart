@@ -109,10 +109,9 @@ class _HomeState extends State<Home> {
           builder: (context, snapshot){
             if(snapshot.hasData){
               GetWalletDetail getWalletDetail = snapshot.data;
-               return   CuponCard(
-            no: '',
-            amount: getWalletDetail.amount??'0',
-            points: double.parse(getWalletDetail.points)??0);
+                return   CuponCard(
+                  walletDetail:getWalletDetail ,
+                );
              
             }else{
               return NullCoupon();

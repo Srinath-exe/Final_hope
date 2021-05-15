@@ -14,6 +14,7 @@ import 'package:hope/Model/WalletModel.dart';
 import 'package:hope/Model/productDetails.dart';
 import 'package:hope/Model/profile_model.dart';
 import 'package:hope/Model/register_model.dart';
+import 'package:hope/Model/tnc_mode.dart';
 import 'package:hope/Screens/profile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -396,6 +397,25 @@ class ApiService {
       try {
         List<GetPurchasesSelectAll> purchasesSelectAll = getPurchasesSelectAllFromJson(response.body);
         return purchasesSelectAll;
+      } catch (e) {
+        return null;
+      }
+    } else
+      return null;
+  }
+   Future<List<TncElement>> getTnC() async {
+    var url = Uri.parse(baseUrl + "/admin_getTNC");
+    var response = await http.get(url, headers: {
+      HttpHeaders.authorizationHeader: 'Basic ${gettoken()}',
+      
+    });
+     print('getTnC response Status: ${response.statusCode}');
+    print('getTnC  response body: ${response.body}');
+    if (response.statusCode == 201 ) {
+      try {
+        Tnc tnc = tncFromJson(response.body);
+        List<TncElement> list = tnc.tnc;
+        return list;
       } catch (e) {
         return null;
       }

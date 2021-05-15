@@ -104,7 +104,7 @@ class _ProductMainState extends State<ProductMain> {
                       shrinkWrap: true,
                       itemCount: productlistall.length,
                       itemBuilder: (context, index) {
-                        return ProductCard(product: productlistall[index]);
+                        return ProductCard(product: productlistall[index],token: token,uuid: uuid);
                       },
                     ),
                   ),
@@ -123,6 +123,8 @@ class _ProductMainState extends State<ProductMain> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<GetProductListAll> productlistall = snapshot.data;
+              List<GetProductListAll> productlistall1 =
+                productlistall.where((e) => e.prdCustid == "Fashion").toList();
             return Container(
               width: MediaQuery.of(context).size.width,
               child: Row(
@@ -133,9 +135,9 @@ class _ProductMainState extends State<ProductMain> {
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
-                      itemCount: productlistall.length,
+                      itemCount: productlistall1.length,
                       itemBuilder: (context, index) {
-                        return ProductCard(product: productlistall[index]);
+                        return ProductCard(product: productlistall1[index],token: token,uuid: uuid);
                       },
                     ),
                   ),
@@ -154,6 +156,8 @@ class _ProductMainState extends State<ProductMain> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<GetProductListAll> productlistall = snapshot.data;
+              List<GetProductListAll> productlistall1 =
+                productlistall.where((e) => e.prdCustid == "Footwear").toList();
             return Container(
               width: MediaQuery.of(context).size.width,
               child: Row(
@@ -164,9 +168,9 @@ class _ProductMainState extends State<ProductMain> {
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
-                      itemCount: productlistall.length,
+                      itemCount: productlistall1.length,
                       itemBuilder: (context, index) {
-                        return ProductCard(product: productlistall[index]);
+                        return ProductCard(product: productlistall1[index],token: token,uuid: uuid);
                       },
                     ),
                   ),
@@ -185,6 +189,8 @@ class _ProductMainState extends State<ProductMain> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<GetProductListAll> productlistall = snapshot.data;
+            List<GetProductListAll> productlistall1 =
+                productlistall.where((e) => e.prdCustid == "Cosmetcs").toList();
             return Container(
               width: MediaQuery.of(context).size.width,
               child: Row(
@@ -195,9 +201,9 @@ class _ProductMainState extends State<ProductMain> {
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
-                      itemCount: productlistall.length,
+                      itemCount: productlistall1.length,
                       itemBuilder: (context, index) {
-                        return ProductCard(product: productlistall[index]);
+                        return ProductCard(product: productlistall1[index],token: token,uuid: uuid);
                       },
                     ),
                   ),
@@ -228,7 +234,7 @@ class _ProductMainState extends State<ProductMain> {
                       shrinkWrap: true,
                       itemCount: productlistall.length,
                       itemBuilder: (context, index) {
-                        return ProductCard(product: productlistall[index]);
+                        return ProductCard(product: productlistall[index],token: token,uuid: uuid);
                       },
                     ),
                   ),
@@ -242,7 +248,7 @@ class _ProductMainState extends State<ProductMain> {
   }
 
   Widget nullProduct() {
-   return SingleChildScrollView(
+    return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
@@ -253,50 +259,58 @@ class _ProductMainState extends State<ProductMain> {
         ));
   }
 
- Widget emptyProductCard() {
+  Widget emptyProductCard() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.20,
-        width: MediaQuery.of(context).size.width * 0.35,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey[500],
-              offset: Offset(0.0, 1.0), //(x,y)
-              blurRadius: 2.0,
+        padding: const EdgeInsets.all(8.0),
+        child: Material(
+          elevation: 2,
+          shadowColor: Colors.grey[50],
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.20,
+            width: MediaQuery.of(context).size.width * 0.35,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+              boxShadow: [
+                // BoxShadow(
+                //   color: Colors.grey[500],
+                //   offset: Offset(0.0, 1.0), //(x,y)
+                //   blurRadius: 2.0,
+                // ),
+              ],
             ),
-          ],
-        ),
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Shimmer.fromColors(
-            baseColor: Colors.grey[100],
-            highlightColor: Colors.white,
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.20 * 0.6,
-              width: MediaQuery.of(context).size.width * 0.35,
-              color: Colors.grey,
-            ),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey[100],
+                    highlightColor: Colors.white,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.20 * 0.6,
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey[100],
+                        highlightColor: Colors.white,
+                        child: Container(
+                            height:
+                                MediaQuery.of(context).size.height * 0.20 * 0.1,
+                            width:
+                                MediaQuery.of(context).size.width * 0.35 * 0.6,
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(50))),
+                      )
+                    ],
+                  )
+                ]),
           ),
-          Row(
-            children: [
-              Shimmer.fromColors(
-            baseColor: Colors.grey[100],
-            highlightColor: Colors.white,
-            child: Container(
-                  height: MediaQuery.of(context).size.height * 0.20 * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.35 * 0.6,
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(50))),
-              )
-            ],
-          )
-        ]),
-      ),
-    );
+        ));
   }
 }

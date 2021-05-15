@@ -7,14 +7,14 @@ class ProductCard extends StatefulWidget {
   String token;
   String uuid;
 
-  ProductCard({this.product,this.token,this.uuid});
-  
+  ProductCard({this.product, this.token, this.uuid});
+
   @override
   Product_CardState createState() => Product_CardState();
 }
 
 class Product_CardState extends State<ProductCard> {
-   String imgpath = 'https://jerboa.in/usrfiles/';
+  String imgpath = 'https://jerboa.in/usrfiles/';
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,54 +26,61 @@ class Product_CardState extends State<ProductCard> {
             MaterialPageRoute(
               builder: (context) => ProductPage(
                 productId: widget.product.prdId,
-                token:widget.token,
-                uuid:widget.uuid,
+                token: widget.token,
+                uuid: widget.uuid,
                 productName: widget.product.prdName,
               ),
             ),
           );
         },
-        child: Container(
-            height: MediaQuery.of(context).size.height * 0.20,
-            width: MediaQuery.of(context).size.width * 0.35,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey[500],
-                  offset: Offset(0.0, 1.0), //(x,y)
-                  blurRadius: 2.0,
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                    height: MediaQuery.of(context).size.height * 0.16,
-                    width: MediaQuery.of(context).size.width * 0.33,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.white,
-                          offset: Offset(0.0, 1.0), //(x,y)
-                          blurRadius: 6.0,
-                        ),
-                      ],
-                      image: DecorationImage(
-                          image: NetworkImage(imgpath+widget.product.prdImage),
-                          fit: BoxFit.cover),
-                    )),
-                Text(widget.product.prdName,
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600)),
-              ],
-            )),
+        child: Material(
+          elevation: 2,
+          shadowColor: Colors.grey[100],
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          child: Container(
+              height: MediaQuery.of(context).size.height * 0.20,
+              width: MediaQuery.of(context).size.width * 0.35,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.white,
+                boxShadow: [
+                  // BoxShadow(
+                  //   color: Colors.grey[500],
+                  //   offset: Offset(0.0, 1.0), //(x,y)
+                  //   blurRadius: 2.0,
+                  // ),
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                      height: MediaQuery.of(context).size.height * 0.16,
+                      width: MediaQuery.of(context).size.width * 0.33,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                        image: DecorationImage(
+                            image:
+                                NetworkImage(imgpath + widget.product.prdImage),
+                            fit: BoxFit.cover),
+                      )),
+                  Text(widget.product.prdName,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600)),
+                ],
+              )),
+        ),
       ),
     );
   }

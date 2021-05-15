@@ -46,6 +46,7 @@ dependencies:
   shimmer: ^2.0.0
   jiffy: ^4.1.0
   awesome_dialog: ^2.0.0
+  google_fonts: ^2.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
