@@ -110,8 +110,7 @@ class _HomeState extends State<Home> {
             if(snapshot.hasData){
               GetWalletDetail getWalletDetail = snapshot.data;
                return   CuponCard(
-            name: 'Jonathan Reyes',
-            no: '1234 6744 1234',
+            no: '',
             amount: getWalletDetail.amount??'0',
             points: double.parse(getWalletDetail.points)??0);
              

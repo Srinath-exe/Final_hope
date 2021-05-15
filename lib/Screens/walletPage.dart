@@ -113,7 +113,7 @@ class _WalletPageState extends State<WalletPage> {
                   ],
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.40,
+                  height: MediaQuery.of(context).size.height * 0.35,
                   child: SingleChildScrollView(
                     child: Column(children: [PurchaseWallet()]),
                   ),
@@ -519,7 +519,7 @@ class _WalletPageState extends State<WalletPage> {
                             'Refer and Earn FREE Points',
                             style: TextStyle(
                                 color: Colors.pink[500],
-                                fontSize: 18,
+                                fontSize: 15,
                                 fontWeight: FontWeight.w600),
                           ),
                         ],

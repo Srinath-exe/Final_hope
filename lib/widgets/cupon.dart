@@ -5,18 +5,16 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CuponCard extends StatefulWidget {
-  
-  String name;
-   String no; 
-   String amount; 
-   double points;
-   CuponCard({this.name, this.no, this.amount, this.points});
+  String no;
+  String amount;
+  double points;
+  CuponCard({this.no, this.amount, this.points});
   @override
   _CuponCardState createState() => _CuponCardState();
 }
 
 class _CuponCardState extends State<CuponCard> {
-    String token = '';
+  String token = '';
   String uuid = '';
   String imgpath = 'https://jerboa.in/usrfiles/';
   ApiService apiService;
@@ -42,11 +40,12 @@ class _CuponCardState extends State<CuponCard> {
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     apiService = new ApiService(token: token);
     print('uuid: $uuid');
-     num max = 1500;
+    num max = 1500;
     num rest = max - widget.points;
     int point = widget.points.toInt();
     int more = rest.toInt();
@@ -59,17 +58,17 @@ class _CuponCardState extends State<CuponCard> {
             color: Colors.orange[200],
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(60),
-               bottomRight: Radius.circular(60),
-                topRight: Radius.circular(20),
-                 bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(60),
+              topRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
             ),
-             boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 6.0,
-                  ),
-                ],
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                offset: Offset(0.0, 1.0), //(x,y)
+                blurRadius: 6.0,
+              ),
+            ],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -110,76 +109,67 @@ class _CuponCardState extends State<CuponCard> {
                               GaugeAnnotation(
                                   positionFactor: 0.5,
                                   angle: 90,
-                                  widget:
-                                      Text(widget.points.toStringAsFixed(0) + ' / $max',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
-                                          )))
+                                  widget: Text(
+                                      widget.points.toStringAsFixed(0) +
+                                          ' / $max',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                      )))
                             ])
                       ]),
                     ),
-                    Text(widget.name,
-                        style:
-                            TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                   ],
                 ),
               ),
               Row(
                 children: [
                   Container(
-                    
                       width: MediaQuery.of(context).size.width * 0.45,
                       height: MediaQuery.of(context).size.height * 0.2,
                       color: Colors.transparent,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                       
-                              Column(
+                          Column(
+                            children: [
+                              Row(
                                 children: [
                                   Text('$point Points',
+                                      textScaleFactor: 1,
                                       style: TextStyle(
-                                      
-                                          fontSize: 30,
+                                          fontSize: 25,
                                           color: Colors.white,
                                           fontWeight: FontWeight.w700)),
-                             
-                          
-                          Text('$more more coins to next reward',
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500)),   ],
+                                ],
                               ),
-                            
-                       
-                          
-                             Column(
-                              children: [
-                                Container(
-                                  height: MediaQuery.of(context).size.height * 0.045,
-                                  width: MediaQuery.of(context).size.width * 0.25,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: Colors.white,
-                                  ),
-                                  child: Center(
-                                    child: Text('${widget.amount} TSh',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w600)),
-                                  ),),
-                           
-                          Text(widget.no,
+                              Text('$more more coins to next reward',
+                                  textScaleFactor: 1,
                                   style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 12,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w800)),
-                                     
-                              ],
-                            ),
-                          
+                                      fontWeight: FontWeight.w500)),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.045,
+                                width: MediaQuery.of(context).size.width * 0.25,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Colors.white,
+                                ),
+                                child: Center(
+                                  child: Text('${widget.amount} TSh',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ))
                 ],
@@ -187,7 +177,5 @@ class _CuponCardState extends State<CuponCard> {
             ],
           )),
     );
-      
-    
   }
 }

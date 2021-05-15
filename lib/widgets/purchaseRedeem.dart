@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hope/Model/CustomerPurchaseDetails.dart';
 import 'package:hope/Model/PurchaseSelectAll.dart';
 import 'package:hope/Screens/purchaseDetails.dart';
 import 'package:hope/services/apiService.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -72,107 +72,9 @@ class _PurchaseWalletState extends State<PurchaseWallet> {
         });
   }
 
-  Widget purchaseCard(GetCustomerPurchaseDetails purchasedetail) {
-    return Padding(
-      padding: const EdgeInsets.all(.0),
-      child: Material(
-        shadowColor: Colors.grey[100],
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15))),
-        child: GestureDetector(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => PurchaseDetails()));
-          },
-          child: Container(
-              height: MediaQuery.of(context).size.height * 0.08,
-              width: MediaQuery.of(context).size.width * 0.95,
-              decoration: BoxDecoration(),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.blue[100],
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(100))),
-                              padding: const EdgeInsets.all(8.0),
-                              child: (true)
-                                  ? Icon(Icons.shopping_bag,
-                                      color: Colors.blue[300])
-                                  : Icon(Icons.restaurant,
-                                      color: Colors.blue[300]),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.35,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text('pname',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500)),
-                                    ],
-                                  ),
-                                  SizedBox(height: 5),
-                                  Row(
-                                    children: [
-                                      Text('date',
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text('+coins Points',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.green[800],
-                                    fontWeight: FontWeight.w600)),
-                            Text('-total TSh',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w500)),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  Divider(
-                    height: 2,
-                    thickness: 1,
-                    indent: 45,
-                  )
-                ],
-              )),
-        ),
-      ),
-    );
-  }
-
+ 
   Widget purchasecard1(GetPurchasesSelectAll getPurchasesSelectAll) {
+      String date = Jiffy(getPurchasesSelectAll.prcStrtdate).yMMMMd;
     return Padding(
       padding: const EdgeInsets.all(.0),
       child: Material(
@@ -229,14 +131,14 @@ class _PurchaseWalletState extends State<PurchaseWallet> {
                                       Text(getPurchasesSelectAll.strName,
                                           textScaleFactor: 1,
                                           style: TextStyle(
-                                              fontSize: 18,
+                                              fontSize: 14,
                                               fontWeight: FontWeight.w600)),
                                     ],
                                   ),
                                   SizedBox(height: 5),
                                   Row(
                                     children: [
-                                      Text(getPurchasesSelectAll.prcMobile,
+                                      Text(date,
                                           textScaleFactor: 1,
                                           style: TextStyle(
                                               fontSize: 12,
