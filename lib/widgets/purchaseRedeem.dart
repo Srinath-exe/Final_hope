@@ -46,7 +46,7 @@ class _PurchaseWalletState extends State<PurchaseWallet> {
         future: apiService.getPurchasesSelectAll(uuid),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<GetPurchasesSelectAll> purchasesSelectAll = snapshot.data+snapshot.data+snapshot.data+snapshot.data;
+            List<GetPurchasesSelectAll> purchasesSelectAll = snapshot.data;
             purchasesSelectAll = purchasesSelectAll.length>4?purchasesSelectAll.sublist(0,5):purchasesSelectAll;
             return ListView.builder(
               scrollDirection: Axis.vertical,
@@ -188,6 +188,7 @@ class _PurchaseWalletState extends State<PurchaseWallet> {
       child: Column(children: [
         purchaselaod(),
         purchaselaod(),
+                
       ]),
     ));
   }

@@ -64,7 +64,7 @@ class _PurchasesState extends State<Purchases> {
         future: apiService.getPurchasesSelectAll(uuid),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<GetPurchasesSelectAll> purchasesSelectAll = snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData;
+            List<GetPurchasesSelectAll> purchasesSelectAll = snapshot.requireData;
           
             return ListView.builder(
               scrollDirection: Axis.vertical,

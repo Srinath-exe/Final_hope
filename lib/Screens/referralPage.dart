@@ -118,81 +118,79 @@ class _ReferralPageState extends State<ReferralPage> {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                                ProfileModel profile = snapshot.data;
-                            return   Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Container(
-                                    
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.95,
-                                  height: MediaQuery.of(context).size.height *
-                                      0.055,
-                                  child: TextFormField(
-                                      showCursor: false,
-                                    readOnly: true,
-                                    initialValue:
-                                        '${profile.admReffercode}',
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey[50],
-                                      focusColor: Colors.white,
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey[500],
-                                              width: 2),
-                                          borderRadius: const BorderRadius.all(
-                                            const Radius.circular(15.0),
-                                          )),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.blue[500],
-                                              width: 2),
-                                          borderRadius: const BorderRadius.all(
-                                            const Radius.circular(15.0),
-                                          )),
-                                      suffixIcon: Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.080,
-                                        child: ElevatedButton(
-                                            style: ButtonStyle(
-                                              shape: MaterialStateProperty.all<
-                                                      RoundedRectangleBorder>(
-                                                  RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15.0),
-                                                      side: BorderSide(
-                                                          color: Colors
-                                                              .transparent))),
-                                              backgroundColor:
-                                                  MaterialStateProperty
-                                                      .resolveWith<Color>(
-                                                (Set<MaterialState> states) {
-                                                  if (states.contains(
-                                                      MaterialState.pressed))
-                                                    return Colors.blue[500];
-                                                  return Colors.blue[600];
-                                                },
-                                              ),
-                                            ),
-                                            onPressed: () {},
-                                            child: Text(
-                                              'Copy',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            )),
+                            return   Column(
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Container(
+                                        
+                                      width:
+                                          MediaQuery.of(context).size.width * 0.95,
+                                      height: MediaQuery.of(context).size.height *
+                                          0.055,
+                                      child: TextFormField(
+                                          showCursor: false,
+                                        readOnly: true,
+                                        initialValue:
+                                            '${profile.admReffercode}',
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.grey[50],
+                                          focusColor: Colors.white,
+                                          enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey[500],
+                                                  width: 2),
+                                              borderRadius: const BorderRadius.all(
+                                                const Radius.circular(15.0),
+                                              )),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.blue[500],
+                                                  width: 2),
+                                              borderRadius: const BorderRadius.all(
+                                                const Radius.circular(15.0),
+                                              )),
+                                          suffixIcon: Container(
+                                            height:
+                                                MediaQuery.of(context).size.height *
+                                                    0.080,
+                                            child: ElevatedButton(
+                                                style: ButtonStyle(
+                                                  shape: MaterialStateProperty.all<
+                                                          RoundedRectangleBorder>(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  15.0),
+                                                          side: BorderSide(
+                                                              color: Colors
+                                                                  .transparent))),
+                                                  backgroundColor:
+                                                      MaterialStateProperty
+                                                          .resolveWith<Color>(
+                                                    (Set<MaterialState> states) {
+                                                      if (states.contains(
+                                                          MaterialState.pressed))
+                                                        return Colors.blue[500];
+                                                      return Colors.blue[600];
+                                                    },
+                                                  ),
+                                                ),
+                                                onPressed: () {},
+                                                child: Text(
+                                                  'Copy',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                )),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            } else {
-                              return Center(child: CircularProgressIndicator(),);
-                            }
-                          }),
-                      Padding(
+                                      Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.4,
@@ -222,11 +220,18 @@ class _ReferralPageState extends State<ReferralPage> {
                               ),
                             ),
                             onPressed: () {
-                              Share.share('http://www.hopeholding.co.tz/');
+                              Share.share('${profile.admReffercode}');
                             },
                           ),
                         ),
                       ),
+                  
+                              ],
+                            );
+                            } else {
+                              return Center(child: CircularProgressIndicator(),);
+                            }
+                          }),
                     ],
                   ),
                 ),
