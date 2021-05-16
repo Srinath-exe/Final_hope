@@ -38,6 +38,7 @@ class _PurchasesState extends State<Purchases> {
 
   @override
   Widget build(BuildContext context) {
+     apiService = new ApiService(token: token);
     return Scaffold(
          appBar: AppBar(
           title: Text(
@@ -53,9 +54,8 @@ class _PurchasesState extends State<Purchases> {
             color: Colors.black,
           ),
         ),
-        body:  SingleChildScrollView(
-                  child:  purchase(),
-        )
+        body:   purchase(),
+        
 
     );
   }
@@ -64,7 +64,7 @@ class _PurchasesState extends State<Purchases> {
         future: apiService.getPurchasesSelectAll(uuid),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<GetPurchasesSelectAll> purchasesSelectAll = snapshot.requireData;
+            List<GetPurchasesSelectAll> purchasesSelectAll = snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData+snapshot.requireData;
           
             return ListView.builder(
               scrollDirection: Axis.vertical,
@@ -75,7 +75,8 @@ class _PurchasesState extends State<Purchases> {
               },
             );
           } else {
-            return nullPurchase();
+            return 
+            nullPurchase();
           }
         });
   }
