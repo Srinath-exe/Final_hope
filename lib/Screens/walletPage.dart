@@ -112,12 +112,7 @@ class _WalletPageState extends State<WalletPage> {
                     )
                   ],
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  child: SingleChildScrollView(
-                    child: Column(children: [PurchaseWallet()]),
-                  ),
-                )
+                PurchaseWallet()
               ]))
         ],
       )),

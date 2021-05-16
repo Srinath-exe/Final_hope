@@ -46,25 +46,15 @@ class _PurchaseWalletState extends State<PurchaseWallet> {
         future: apiService.getPurchasesSelectAll(uuid),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<GetPurchasesSelectAll> purchasesSelectAll = snapshot.data;
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.23,
-                    width: MediaQuery.of(context).size.width,
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: purchasesSelectAll.length,
-                      itemBuilder: (context, index) {
-                        return purchasecard1(purchasesSelectAll[index]);
-                      },
-                    ),
-                  ),
-                ],
-              ),
+            List<GetPurchasesSelectAll> purchasesSelectAll = snapshot.data+snapshot.data+snapshot.data+snapshot.data;
+            purchasesSelectAll = purchasesSelectAll.length>4?purchasesSelectAll.sublist(0,5):purchasesSelectAll;
+            return ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: purchasesSelectAll.length,
+              itemBuilder: (context, index) {
+                return purchasecard1(purchasesSelectAll[index]);
+              },
             );
           } else {
             return nullPurchase();
@@ -72,9 +62,8 @@ class _PurchaseWalletState extends State<PurchaseWallet> {
         });
   }
 
- 
   Widget purchasecard1(GetPurchasesSelectAll getPurchasesSelectAll) {
-      String date = Jiffy(getPurchasesSelectAll.prcStrtdate).yMMMMd;
+    String date = Jiffy(getPurchasesSelectAll.prcStrtdate).yMMMMd;
     return Padding(
       padding: const EdgeInsets.all(.0),
       child: Material(
@@ -207,6 +196,7 @@ class _PurchaseWalletState extends State<PurchaseWallet> {
     return Padding(
       padding: const EdgeInsets.all(.0),
       child: Material(
+        
         shadowColor: Colors.grey[100],
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15))),

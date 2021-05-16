@@ -273,13 +273,7 @@ class _ProductMainState extends State<ProductMain> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: Colors.white,
-              boxShadow: [
-                // BoxShadow(
-                //   color: Colors.grey[500],
-                //   offset: Offset(0.0, 1.0), //(x,y)
-                //   blurRadius: 2.0,
-                // ),
-              ],
+            
             ),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

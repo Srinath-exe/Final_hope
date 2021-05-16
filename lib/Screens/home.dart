@@ -307,46 +307,45 @@ class _HomeState extends State<Home> {
   Widget emptyProductCard() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.20,
-        width: MediaQuery.of(context).size.width * 0.35,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey[500],
-              offset: Offset(0.0, 1.0), //(x,y)
-              blurRadius: 2.0,
-            ),
-          ],
-        ),
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Shimmer.fromColors(
-            baseColor: Colors.grey[100],
-            highlightColor: Colors.white,
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.20 * 0.6,
-              width: MediaQuery.of(context).size.width * 0.35,
-              color: Colors.grey,
-            ),
+      child: Material(
+         elevation: 2,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+              child: Container(
+          height: MediaQuery.of(context).size.height * 0.20,
+          width: MediaQuery.of(context).size.width * 0.35,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.white,
+            
           ),
-          Row(
-            children: [
-              Shimmer.fromColors(
-            baseColor: Colors.grey[100],
-            highlightColor: Colors.white,
-            child: Container(
-                  height: MediaQuery.of(context).size.height * 0.20 * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.35 * 0.6,
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(50))),
-              )
-            ],
-          )
-        ]),
+          child:
+              Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Shimmer.fromColors(
+              baseColor: Colors.grey[100],
+              highlightColor: Colors.white,
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.20 * 0.6,
+                width: MediaQuery.of(context).size.width * 0.35,
+                color: Colors.grey,
+              ),
+            ),
+            Row(
+              children: [
+                Shimmer.fromColors(
+              baseColor: Colors.grey[100],
+              highlightColor: Colors.white,
+              child: Container(
+                    height: MediaQuery.of(context).size.height * 0.20 * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.35 * 0.6,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(50))),
+                )
+              ],
+            )
+          ]),
+        ),
       ),
     );
   }
