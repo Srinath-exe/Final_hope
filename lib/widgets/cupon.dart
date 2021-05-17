@@ -46,21 +46,27 @@ class _CuponCardState extends State<CuponCard> {
     print('uuid: $uuid');
    
    
-    int point = double.parse(widget.walletDetail.points).round();
-     double p= double.parse(widget.walletDetail.points);
-      num max;
-     if(point<250){
-        max = 250;
-
-     }else if(point<500){
-      max = 500;
-      }else if(point<750){
-      max = 750;
-      }else if(point<1000){
-      max = 1000;
-      }else if(point<1500){
-        max=1500;
+    int point = 
+    double.parse(widget.walletDetail.points).round();
+     double p= double.parse(point.toString());
+    //  double.parse(widget.walletDetail.points);
+      num max =250;
+     
+      for (int i=250;i<=point;i=i+250){
+        max = i+250;
       }
+    //  if(point<250){
+    //     max = 250;
+
+    //  }else if(point<500){
+    //   max = 500;
+    //   }else if(point<750){
+    //   max = 750;
+    //   }else if(point<1000){
+    //   max = 1000;
+    //   }else if(point<1500){
+    //     max=1500;
+    //   }
 
       num rest = max - double.parse(widget.walletDetail.points);
     int more = rest.toInt();
@@ -102,7 +108,7 @@ class _CuponCardState extends State<CuponCard> {
                             startAngle: 270,
                             endAngle: 270,
                             minimum: 0,
-                            maximum: 1500,
+                            maximum: max.toDouble(),
                             showLabels: false,
                             showTicks: false,
                             axisLineStyle: AxisLineStyle(

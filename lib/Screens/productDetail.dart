@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hope/Model/BrandDetails_model.dart';
 import 'package:hope/Model/productDetails.dart';
+import 'package:hope/Screens/ProductLoad.dart';
 import 'package:hope/services/apiService.dart';
 
 class ProductPage extends StatefulWidget {
@@ -73,7 +74,7 @@ class _ProductPageState extends State<ProductPage> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.01),
                             Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -101,43 +102,51 @@ class _ProductPageState extends State<ProductPage> {
                                   ),
                                   SizedBox(
                                       width: MediaQuery.of(context).size.width *
-                                          0.05),
+                                          0.02),
                                   Container(
+                              
                                     width: MediaQuery.of(context).size.width *
-                                        0.45,
+                                        0.5,
                                     child: Column(
                                       children: [
                                         Row(
+                                          
                                           children: [
                                             Text(productDetail.prdName,
                                                 style: TextStyle(
-                                                    fontSize: 25,
+                                                    fontSize: 20,
                                                     color: Colors.black,
                                                     fontWeight:
                                                         FontWeight.w600)),
                                           ],
                                         ),
-                                        Row(
-                                          children: [
-                                            Text(brandDetail.brdName,
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w400)),
-                                          ],
-                                        ),
+                                       
+                                          Row(
+                                            children: [
+                                              Text(brandDetail.brdName,
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w400)),
+                                            ],
+                                          ),
+                                       
                                       ],
                                     ),
                                   ),
                                   SizedBox(
                                       width: MediaQuery.of(context).size.width *
-                                          0.06),
-                                  Text('${productDetail.prdPrice} TSh',
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500)),
+                                          0.02),
+                                  Container(
+                               
+                                    width: MediaQuery.of(context).size.width *0.28,
+                                    child: Text('${productDetail.prdPrice} TSh',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500)),
+                                  ),
                                 ],
                               ),
                             ),
@@ -169,19 +178,23 @@ class _ProductPageState extends State<ProductPage> {
                                 children: [
                                   Text('Product Description:',
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           color: Colors.black,
                                           fontWeight: FontWeight.w400)),
                                 ],
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Text(productDetail.prdDetail,
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400)),
+                              padding: const EdgeInsets.symmetric(horizontal:20.0),
+                              child: Row(
+                                children: [
+                                  Text(productDetail.prdDetail,
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400)),
+                                ],
+                              ),
                             ),
                           ],
                         )),

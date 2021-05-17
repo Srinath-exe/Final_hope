@@ -71,7 +71,7 @@ class Product_CardState extends State<ProductCard> {
                         image: DecorationImage(
                             image:
                                 NetworkImage(imgpath + widget.product.prdImage),
-                            fit: BoxFit.cover),
+                            fit: BoxFit.contain),
                       )),
                   Text(widget.product.prdName,
                       style: TextStyle(

@@ -231,7 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                             });
                           },
                         ),),
-                                        obscureText: true,
+                                        obscureText: _passwordVisible1,
                                         onTap: () {
                                           _controller.animateTo(
                                             _controller

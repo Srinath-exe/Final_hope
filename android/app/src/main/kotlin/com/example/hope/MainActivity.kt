@@ -1,4 +1,4 @@
-package com.example.hope
+package com.hopepoint.hope
 
 import io.flutter.embedding.android.FlutterActivity
 
