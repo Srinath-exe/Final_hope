@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hope/Model/BrandDetails_model.dart';
 import 'package:hope/Model/productDetails.dart';
-import 'package:hope/Screens/ProductLoad.dart';
+
 import 'package:hope/services/apiService.dart';
 
 class ProductPage extends StatefulWidget {
